@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import { useQueryShader } from '../hooks/useQueryShader'
+import styles from './Viewer.module.css'
 
 const Viewer = () => {
   const { id } = useParams()
@@ -25,6 +26,13 @@ const Viewer = () => {
         </Link>{' '}
         <a href={`https://www.shadertoy.com/view/${id}`}>(On ShaderToy)</a>
       </h2>
+      <Link to={`/view/${id}`}>
+        <img
+          className={styles.image}
+          src={`https://www.shadertoy.com/media/shaders/${id}.jpg`}
+          alt="Preview"
+        />
+      </Link>
       <p>
         By:{' '}
         <a href={`https://www.shadertoy.com/user/${info.username}`}>

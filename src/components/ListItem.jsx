@@ -11,12 +11,7 @@ const ShaderListItem = ({ id }) => {
         <img
           className={styles.image}
           src={`https://www.shadertoy.com/media/shaders/${id}.jpg`}
-          alt={
-            data?.Shader
-              ? `Shader ${data.Shader.info.name} (${id}) thumbnail`
-              : `Shader ${id} thumbnail`
-          }
-          title={data?.Shader ? `${data.Shader.info.name} (${id})` : id}
+          alt={data?.Shader ? `Preview` : `Preview for shader ${id} (loading)`}
         />
       </Link>
       {data?.Shader ? (
