@@ -40,6 +40,7 @@ const Browser = () => {
     isSuccess,
     isPreviousData,
     data,
+    refetch,
   } = useQueryShaderList(
     Browser.RESULTS_PER_PAGE,
     text,
@@ -192,7 +193,9 @@ const Browser = () => {
       ) : null}
       <div>
         {isError ? (
-          'Error loading shaders'
+          <div>
+            Error loading shaders <button onClick={refetch}>Retry</button>
+          </div>
         ) : isLoading || isPreviousData ? (
           'Loading shaders...'
         ) : data.Shaders === 0 ? (

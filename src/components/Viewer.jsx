@@ -13,14 +13,18 @@ import XRButton from './XRButton'
 
 const Viewer = () => {
   const { id } = useParams()
-  const { isLoading, isError, data } = useQueryShader(id)
+  const { isLoading, isError, data, refetch } = useQueryShader(id)
 
   if (isLoading) {
     return `Loading shader ${id}`
   }
 
   if (isError) {
-    return `Error loading shader ${id}`
+    return (
+      <div>
+        Error loading shader {id} <button onClick={refetch}>Retry</button>
+      </div>
+    )
   }
 
   const {
