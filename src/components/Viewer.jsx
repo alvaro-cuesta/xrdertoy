@@ -2,6 +2,7 @@ import { Fragment } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useQueryShader } from '../hooks/useQueryShader'
 import styles from './Viewer.module.css'
+import XRButton from './XRButton'
 
 const Viewer = () => {
   const { id } = useParams()
@@ -34,6 +35,7 @@ const Viewer = () => {
           alt="Preview"
         />
       </Link>
+      <XRButton />
       <ul>
         <li>
           By:{' '}
