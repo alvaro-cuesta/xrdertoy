@@ -8,6 +8,8 @@ import {
   VIEW_PATH,
 } from '../paths'
 import styles from './ListItem.module.css'
+import { ReactComponent as EyeIcon } from '../icons/eye.svg'
+import { ReactComponent as HeartIcon } from '../icons/heart.svg'
 
 const ShaderListItemInfo = ({ id, info }) => {
   const { name, username, viewed: views, likes } = info
@@ -21,13 +23,14 @@ const ShaderListItemInfo = ({ id, info }) => {
     <>
       <Link to={viewPath}>{name}</Link> by{' '}
       <a href={shaderToyProfilePath}>{username}</a>
-      (Views: {views}, Likes: {likes})
+      <EyeIcon className="icon" /> {views}
+      <HeartIcon className="icon" /> {likes}
     </>
   )
 }
 
 ShaderListItemInfo.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   info: PropTypes.shape({
     name: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
@@ -44,24 +47,26 @@ const ShaderListItem = ({ id }) => {
   const shaderToyViewPath = generatePath(SHADERTOY_VIEW_PATH, { id })
 
   return (
-    <>
-      <Link to={viewPath}>
+    <div className={styles.ListItem}>
+      <Link to={viewPath} className={styles.link}>
         <img
           className={styles.image}
           src={shaderToyPreviewPath}
           alt={data?.Shader ? `Preview` : `Preview for shader ${id} (loading)`}
         />
       </Link>
-      {data?.Shader ? (
-        <ShaderListItemInfo id={id} info={data?.Shader.info} />
-      ) : null}
+      <div>
+        {data?.Shader ? (
+          <ShaderListItemInfo id={id} info={data?.Shader.info} />
+        ) : null}
+      </div>
       <a href={shaderToyViewPath}>On ShaderToy</a>
-    </>
+    </div>
   )
 }
 
 ShaderListItem.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
 }
 
 export default ShaderListItem

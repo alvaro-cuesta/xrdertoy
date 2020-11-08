@@ -1,0 +1,11 @@
+.resultList {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding: 1em;
+  row-gap: 1em;
+  column-gap: 1em;
+}

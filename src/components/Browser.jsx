@@ -6,9 +6,9 @@ import {
   StringParam,
   BooleanParam,
 } from 'use-query-params'
-import { RESULTS_PER_PAGE } from '../config'
 import { useQueryShaderList } from '../hooks/useQueryShaderList'
 import ListItem from './ListItem'
+import styles from './Browser.module.css'
 
 const Browser = () => {
   // Query params
@@ -41,6 +41,7 @@ const Browser = () => {
     isPreviousData,
     data,
   } = useQueryShaderList(
+    Browser.RESULTS_PER_PAGE,
     text,
     page,
     sort,
@@ -101,7 +102,7 @@ const Browser = () => {
 
   // Pagination
   const totalShaders = data?.Shaders || 0
-  const maxPage = Math.floor(totalShaders / RESULTS_PER_PAGE) + 1
+  const maxPage = Math.floor(totalShaders / Browser.RESULTS_PER_PAGE) + 1
 
   useEffect(() => {
     if (page > maxPage) {
@@ -189,25 +190,29 @@ const Browser = () => {
           <button onClick={handleLastPage}>&gt;&gt;</button>
         </>
       ) : null}
-      {isError ? (
-        'Error loading shaders'
-      ) : isLoading || isPreviousData ? (
-        'Loading shaders...'
-      ) : data.Shaders === 0 ? (
-        'No shaders found matching that criteria'
-      ) : (
-        <ul>
-          {data.Results.map((id) => (
-            <li key={id}>
-              <ListItem id={id} />
-            </li>
-          ))}
-        </ul>
-      )}
+      <div>
+        {isError ? (
+          'Error loading shaders'
+        ) : isLoading || isPreviousData ? (
+          'Loading shaders...'
+        ) : data.Shaders === 0 ? (
+          'No shaders found matching that criteria'
+        ) : (
+          <ul className={styles.resultList}>
+            {data.Results.map((id) => (
+              <li key={id}>
+                <ListItem id={id} />
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </>
   )
 }
 
 Browser.propTypes = {}
+
+Browser.RESULTS_PER_PAGE = 12
 
 export default Browser

@@ -1,7 +1,8 @@
 const { useQuery } = require('react-query')
-const { APP_KEY, RESULTS_PER_PAGE } = require('../config')
+const { APP_KEY } = require('../config')
 
 export const useQueryShaderList = (
+  resultsPerPage,
   text,
   page,
   sort,
@@ -35,8 +36,8 @@ export const useQueryShaderList = (
         }${hasWebcam ? '&filter=webcam' : ''}${
           hasMultipass ? '&filter=multipass' : ''
         }${hasSoundCloud ? '&filter=musicstream' : ''}&sort=${sort}&from=${
-          (page - 1) * RESULTS_PER_PAGE
-        }&num=${RESULTS_PER_PAGE}&key=${APP_KEY}`,
+          (page - 1) * resultsPerPage
+        }&num=${resultsPerPage}&key=${APP_KEY}`,
         {
           signal,
         },
