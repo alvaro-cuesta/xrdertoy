@@ -1,6 +1,3 @@
-- Tag search
-- Text search
-- Link tags in viewer
 - Viewer
 - Published info?
 - Flags info?

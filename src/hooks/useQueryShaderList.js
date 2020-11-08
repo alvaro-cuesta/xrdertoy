@@ -29,7 +29,7 @@ export const useQueryShaderList = (
 
       const promise = fetch(
         `https://www.shadertoy.com/api/v1/shaders${
-          text ? `/query/${text}` : ''
+          text ? `/query/${encodeURIComponent(text)}` : ''
         }?filter=vr${hasSoundOutput ? '&filter=soundoutput' : ''}${
           hasMicrophone ? '&filter=soundinput' : ''
         }${hasWebcam ? '&filter=webcam' : ''}${

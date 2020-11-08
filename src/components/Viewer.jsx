@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useQueryShader } from '../hooks/useQueryShader'
 import styles from './Viewer.module.css'
@@ -33,23 +34,33 @@ const Viewer = () => {
           alt="Preview"
         />
       </Link>
-      <p>
-        By:{' '}
-        <a href={`https://www.shadertoy.com/user/${info.username}`}>
-          {info.username}
-        </a>{' '}
-        on {new Date(info.date * 1000).toISOString()}
-      </p>
-      <p>
-        Views: {info.viewed}, Likes: {info.likes}
-      </p>
-      <p>Tags: {info.tags.join(', ')}</p>
-      <p>
-        Description:{' '}
-        {info.description.split(/\n+/).map((text) => (
-          <p>{text}</p>
-        ))}
-      </p>
+      <ul>
+        <li>
+          By:{' '}
+          <a href={`https://www.shadertoy.com/user/${info.username}`}>
+            {info.username}
+          </a>{' '}
+          on {new Date(info.date * 1000).toISOString()}
+        </li>
+        <li>
+          Views: {info.viewed}, Likes: {info.likes}
+        </li>
+        <li>
+          Tags:{' '}
+          {info.tags.map((tag, i) => (
+            <Fragment key={tag}>
+              <Link to={`/?text=${tag}`}>{tag}</Link>
+              {i !== info.tags.length - 1 ? ', ' : null}
+            </Fragment>
+          ))}
+        </li>
+        <li>
+          Description:{' '}
+          {info.description.split(/\n+/).map((text, i) => (
+            <p key={i}>{text}</p>
+          ))}
+        </li>
+      </ul>
       <pre>{JSON.stringify(renderpass, null, 4)}</pre>
     </>
   )
