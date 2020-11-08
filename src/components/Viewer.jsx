@@ -40,6 +40,16 @@ const Viewer = () => {
     ? generatePath(SHADERTOY_USER_PATH, { username: info.username })
     : null
 
+  const date = info.date ? new Date(info.date * 1000) : null
+  const dateText = `${date.getFullYear()}-${(date.getMonth() + 1)
+    .toString()
+    .padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`
+  const timeText = `${date
+    .getHours()
+    .toString()
+    .padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`
+  const dateTimeText = `${dateText} ${timeText}`
+
   return (
     <>
       <h2>
@@ -62,7 +72,9 @@ const Viewer = () => {
       <ul>
         <li>
           By: <a href={shaderToyProfilePath}>{info.username}</a> on{' '}
-          {new Date(info.date * 1000).toISOString()}
+          <span className={styles.dateTime} title={dateTimeText}>
+            {dateText}
+          </span>
         </li>
         <li>
           <EyeIcon className="icon" /> {info.viewed}{' '}

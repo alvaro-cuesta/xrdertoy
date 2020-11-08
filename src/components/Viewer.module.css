@@ -1,3 +1,8 @@
 .image {
   width: 20em;
 }
+
+.dateTime {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+}
