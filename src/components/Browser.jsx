@@ -208,4 +208,6 @@ const Browser = () => {
   )
 }
 
+Browser.propTypes = {}
+
 export default Browser

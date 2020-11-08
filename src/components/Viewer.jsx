@@ -1,6 +1,13 @@
 import { Fragment } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { generatePath, Link, useParams } from 'react-router-dom'
 import { useQueryShader } from '../hooks/useQueryShader'
+import {
+  BROWSER_PATH,
+  SHADERTOY_PREVIEW_PATH,
+  SHADERTOY_USER_PATH,
+  SHADERTOY_VIEW_PATH,
+  VIEW_PATH,
+} from '../paths'
 import styles from './Viewer.module.css'
 import XRButton from './XRButton'
 
@@ -20,29 +27,36 @@ const Viewer = () => {
     Shader: { ver, info, renderpass },
   } = data
 
+  const viewPath = generatePath(VIEW_PATH, { id })
+  const shaderToyPreviewPath = generatePath(SHADERTOY_PREVIEW_PATH, { id })
+  const shaderToyViewPath = generatePath(SHADERTOY_VIEW_PATH, { id })
+  const shaderToyProfilePath = info.username
+    ? generatePath(SHADERTOY_USER_PATH, { username: info.username })
+    : null
+
   return (
     <>
       <h2>
-        <Link to={`/view/${id}`}>
+        <Link to={viewPath}>
           {info.name} v{ver}
         </Link>{' '}
-        <a href={`https://www.shadertoy.com/view/${id}`}>(On ShaderToy)</a>
+        <a href={shaderToyViewPath}>(On ShaderToy)</a>
       </h2>
-      <Link to={`/view/${id}`}>
+
+      <Link to={viewPath}>
         <img
           className={styles.image}
-          src={`https://www.shadertoy.com/media/shaders/${id}.jpg`}
+          src={shaderToyPreviewPath}
           alt="Preview"
         />
       </Link>
+
       <XRButton />
+
       <ul>
         <li>
-          By:{' '}
-          <a href={`https://www.shadertoy.com/user/${info.username}`}>
-            {info.username}
-          </a>{' '}
-          on {new Date(info.date * 1000).toISOString()}
+          By: <a href={shaderToyProfilePath}>{info.username}</a> on{' '}
+          {new Date(info.date * 1000).toISOString()}
         </li>
         <li>
           Views: {info.viewed}, Likes: {info.likes}
@@ -51,7 +65,7 @@ const Viewer = () => {
           Tags:{' '}
           {info.tags.map((tag, i) => (
             <Fragment key={tag}>
-              <Link to={`/?text=${tag}`}>{tag}</Link>
+              <Link to={`${BROWSER_PATH}?text=${tag}`}>{tag}</Link>
               {i !== info.tags.length - 1 ? ', ' : null}
             </Fragment>
           ))}
@@ -63,9 +77,15 @@ const Viewer = () => {
           ))}
         </li>
       </ul>
-      <pre>{JSON.stringify(renderpass, null, 4)}</pre>
+
+      <details>
+        <summary>Debug</summary>
+        <pre>{JSON.stringify(renderpass, null, 4)}</pre>
+      </details>
     </>
   )
 }
+
+Viewer.propTypes = {}
 
 export default Viewer

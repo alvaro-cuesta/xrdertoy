@@ -30,4 +30,6 @@ const XRButton = () => {
   )
 }
 
+XRButton.propTypes = {}
+
 export default XRButton
