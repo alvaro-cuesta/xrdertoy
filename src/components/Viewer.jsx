@@ -10,6 +10,8 @@ import {
 } from '../paths'
 import styles from './Viewer.module.css'
 import XRButton from './XRButton'
+import { ReactComponent as EyeIcon } from '../icons/eye.svg'
+import { ReactComponent as HeartIcon } from '../icons/heart.svg'
 
 const Viewer = () => {
   const { id } = useParams()
@@ -63,7 +65,8 @@ const Viewer = () => {
           {new Date(info.date * 1000).toISOString()}
         </li>
         <li>
-          Views: {info.viewed}, Likes: {info.likes}
+          <EyeIcon className="icon" /> {info.viewed}{' '}
+          <HeartIcon className="icon" /> {info.likes}
         </li>
         <li>
           Tags:{' '}

@@ -23,8 +23,8 @@ const ShaderListItemInfo = ({ id, info }) => {
     <>
       <Link to={viewPath}>{name}</Link> by{' '}
       <a href={shaderToyProfilePath}>{username}</a>
-      <EyeIcon className="icon" /> {views}
-      <HeartIcon className="icon" /> {likes}
+      <EyeIcon className="icon" /> {views} <HeartIcon className="icon" />{' '}
+      {likes}
     </>
   )
 }
