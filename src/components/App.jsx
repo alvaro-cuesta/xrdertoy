@@ -35,7 +35,7 @@ const App = () => (
                 Made by <a href={ALVARO_ROOT_PATH}>Álvaro Cuesta</a>
               </li>
               <li>
-                Powered by <a href={SHADERTOY_ROOT_PATH}>ShaderToy</a>
+                Powered by <a href={SHADERTOY_ROOT_PATH}>ShaderToy.com</a> API
               </li>
             </ul>
           </footer>
