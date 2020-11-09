@@ -141,10 +141,15 @@ const Browser = () => {
   return (
     <div className={styles.Browser}>
       <div className={styles.filters}>
-        <label>
-          Text: <input type="text" value={text} onChange={handleTextChange} />
+        <div>
+          <input
+            type="text"
+            value={text}
+            onChange={handleTextChange}
+            placeholder="Search..."
+          />
           <button onClick={handleTextDelete}>X</button>
-        </label>
+        </div>
         <label>
           Sort by:{' '}
           <select onChange={handleSortChange} value={sort}>
