@@ -1,11 +1,4 @@
-.ListItem {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-}
-
-.imageWrapper {
+.Preview {
   width: 100%;
   height: 100%;
   position: relative;
@@ -18,7 +11,7 @@
   -webkit-font-smoothing: subpixel-antialiased;
 }
 
-.imageWrapper:hover {
+.Preview:hover {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
   transform: perspective(400px) translateZ(10px);
 }
@@ -59,7 +52,7 @@
   opacity: 1;
 }
 
-.imageWrapper:hover .imageOverlay {
+.Preview:hover .imageOverlay {
   opacity: 0.1;
 }
 
@@ -67,18 +60,16 @@
   opacity: 0;
 }
 
-.imageWrapper:hover .imageSpinner {
+.Preview:hover .imageSpinner {
   opacity: 0;
 }
 
-.imageWrapper.isLoading .imageSpinner {
-  opacity: 1;
+.Preview.isLoading {
+  .imageSpinner {
+    opacity: 1;
+  }
 }
 
-.imageWrapper.isLoading:hover .imageSpinner {
+.Preview.isLoading:hover .imageSpinner {
   opacity: 0.1;
-}
-
-.data {
-  white-space: nowrap;
 }

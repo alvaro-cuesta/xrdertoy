@@ -1,18 +1,15 @@
-import cx from 'classnames'
 import { generatePath, Link, useParams } from 'react-router-dom'
 import { useQueryShader } from '../hooks/useQueryShader'
 import {
   BROWSER_PATH,
-  SHADERTOY_PREVIEW_PATH,
   SHADERTOY_USER_PATH,
   SHADERTOY_VIEW_PATH,
   VIEW_PATH,
 } from '../paths'
 import styles from './Viewer.module.css'
 import XRButton from './XRButton'
-import { ReactComponent as EyeIcon } from '../icons/eye.svg'
-import { ReactComponent as HeartIcon } from '../icons/heart.svg'
 import { getFlags } from '../shadertoy/flags'
+import Preview from './Preview'
 
 const Viewer = () => {
   const { id } = useParams()
@@ -36,7 +33,6 @@ const Viewer = () => {
   } = data
 
   const viewPath = generatePath(VIEW_PATH, { id })
-  const shaderToyPreviewPath = generatePath(SHADERTOY_PREVIEW_PATH, { id })
   const shaderToyViewPath = generatePath(SHADERTOY_VIEW_PATH, { id })
   const shaderToyProfilePath = info.username
     ? generatePath(SHADERTOY_USER_PATH, { username: info.username })
@@ -69,23 +65,12 @@ const Viewer = () => {
           </h2>
         </header>
 
-        <div className={styles.imageWrapper}>
-          <Link to={viewPath}>
-            <img
-              className={styles.image}
-              src={shaderToyPreviewPath}
-              alt="Preview"
-            />
-            <div className={cx(styles.imageOverlay, styles.imageInfo)}>
-              <div>
-                {info.viewed} <EyeIcon className="icon" />
-              </div>
-              <div>
-                {info.likes} <HeartIcon className="icon" />
-              </div>
-            </div>
-          </Link>
-        </div>
+        <Preview
+          id={id}
+          views={info.viewed}
+          likes={info.likes}
+          className={styles.preview}
+        />
 
         <XRButton renderpass={renderpass} />
       </div>

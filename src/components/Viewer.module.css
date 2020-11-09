@@ -61,45 +61,7 @@
   content: ', ';
 }
 
-.imageWrapper {
+.preview {
   width: 20em;
-  position: relative;
-  border-radius: 5px;
-  border: 2px solid #222;
-  transition: box-shadow 0.2s, transform 0.1s;
-  backface-visibility: hidden;
-  transform: perspective(400px) translateZ(1px);
-  -webkit-font-smoothing: antialised;
-  -webkit-font-smoothing: subpixel-antialiased;
-}
-
-.imageWrapper:hover {
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
-  transform: perspective(400px) translateZ(10px);
-}
-
-.image {
-  display: block;
-  width: 100%;
-}
-
-.imageInfo {
-  top: 3px;
-  right: 3px;
-  border-radius: 2px;
-  text-align: right;
-  padding: 0.1em 0.2em;
-}
-
-.imageOverlay {
-  pointer-events: none;
-  color: #000;
-  position: absolute;
-  background-color: rgba(255, 255, 255, 0.75);
-  transition: opacity 0.2s;
-  opacity: 1;
-}
-
-.imageWrapper:hover .imageOverlay {
-  opacity: 0.25;
+  height: auto;
 }
