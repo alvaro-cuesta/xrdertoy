@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import cx from 'classnames'
 import { generatePath, Link, useParams } from 'react-router-dom'
 import { useQueryShader } from '../hooks/useQueryShader'
 import {
@@ -55,106 +55,118 @@ const Viewer = () => {
   const flags = getFlags(info.flags)
 
   return (
-    <>
-      <header className={styles.header}>
-        <h2>
-          <Link to={viewPath}>{info.name}</Link>{' '}
-          <small>
-            by{' '}
-            <Link to={`${BROWSER_PATH}?text=${info.username}`}>
-              {info.username}
-            </Link>
-          </small>
-        </h2>
-      </header>
+    <div className={styles.Viewer}>
+      <div className={styles.main}>
+        <header className={styles.header}>
+          <h2>
+            <Link to={viewPath}>{info.name}</Link>{' '}
+            <small>
+              by{' '}
+              <Link to={`${BROWSER_PATH}?text=${info.username}`}>
+                {info.username}
+              </Link>
+            </small>
+          </h2>
+        </header>
 
-      <Link to={viewPath}>
-        <img
-          className={styles.image}
-          src={shaderToyPreviewPath}
-          alt="Preview"
-        />
-      </Link>
+        <div className={styles.imageWrapper}>
+          <Link to={viewPath}>
+            <img
+              className={styles.image}
+              src={shaderToyPreviewPath}
+              alt="Preview"
+            />
+            <div className={cx(styles.imageOverlay, styles.imageInfo)}>
+              <div>
+                {info.viewed} <EyeIcon className="icon" />
+              </div>
+              <div>
+                {info.likes} <HeartIcon className="icon" />
+              </div>
+            </div>
+          </Link>
+        </div>
 
-      <XRButton />
+        <XRButton renderpass={renderpass} />
+      </div>
 
-      <ul>
-        <li>
-          <span className={styles.dateTime} title={dateTimeText}>
-            {dateText}
-          </span>
-        </li>
-        <li>
-          <EyeIcon className="icon" /> {info.viewed}{' '}
-          <HeartIcon className="icon" /> {info.likes}
-        </li>
-        <li>
-          On ShaderToy: <a href={shaderToyViewPath}>shader</a>,{' '}
-          <a href={shaderToyProfilePath}>{info.username}</a>
-        </li>
-        <li>
-          Tags:{' '}
-          <ul className={styles.commaList}>
-            {info.tags.map((tag, i) => (
-              <li key={tag}>
-                <Link to={`${BROWSER_PATH}?text=${tag}`}>{tag}</Link>
-              </li>
+      <div className={styles.info}>
+        <ul>
+          <li>
+            <span className={styles.dateTime} title={dateTimeText}>
+              {dateText}
+            </span>
+          </li>
+          <li>
+            On ShaderToy: <a href={shaderToyViewPath}>{info.name}</a>,{' '}
+            <a href={shaderToyProfilePath}>{info.username}</a>
+          </li>
+          <li>
+            Tags:{' '}
+            <ul className={styles.commaList}>
+              {info.tags.map((tag, i) => (
+                <li key={tag}>
+                  <Link to={`${BROWSER_PATH}?text=${tag}`}>{tag}</Link>
+                </li>
+              ))}
+            </ul>
+          </li>
+          <li>
+            Flags:{' '}
+            <ul className={styles.commaList}>
+              {flags.vr && (
+                <li>
+                  <Link to={BROWSER_PATH}>VR</Link>
+                </li>
+              )}
+              {flags.multipass && (
+                <li>
+                  <Link to={`${BROWSER_PATH}?multipass=1`}>Multipass</Link>
+                </li>
+              )}
+              {flags.gpuSound && (
+                <li>
+                  <Link to={`${BROWSER_PATH}?gpusound=1`}>GPU Sound</Link>
+                </li>
+              )}
+              {flags.microphone && (
+                <li>
+                  <Link to={`${BROWSER_PATH}?microphone=1`}>Microphone</Link>
+                </li>
+              )}
+              {flags.soundCloud && (
+                <li>
+                  <Link to={`${BROWSER_PATH}?soundcloud=1`}>SoundCloud</Link>
+                </li>
+              )}
+              {flags.webcam && (
+                <li>
+                  <Link to={`${BROWSER_PATH}?webcam=1`}>Webcam</Link>
+                </li>
+              )}
+              {flags.keyboard && (
+                <li>
+                  <Link to={`${BROWSER_PATH}?keyboard=1`}>Keyboard</Link>
+                </li>
+              )}
+            </ul>
+          </li>
+          <li>
+            Description:{' '}
+            {info.description.split(/\n+/).map((text, i) => (
+              <p key={i}>{text}</p>
             ))}
-          </ul>
-        </li>
-        <li>
-          Flags:{' '}
-          <ul className={styles.commaList}>
-            {flags.vr && (
-              <li>
-                <Link to={BROWSER_PATH}>VR</Link>
-              </li>
-            )}
-            {flags.multipass && (
-              <li>
-                <Link to={`${BROWSER_PATH}?multipass=1`}>Multipass</Link>
-              </li>
-            )}
-            {flags.gpuSound && (
-              <li>
-                <Link to={`${BROWSER_PATH}?gpusound=1`}>GPU Sound</Link>
-              </li>
-            )}
-            {flags.microphone && (
-              <li>
-                <Link to={`${BROWSER_PATH}?microphone=1`}>Microphone</Link>
-              </li>
-            )}
-            {flags.soundCloud && (
-              <li>
-                <Link to={`${BROWSER_PATH}?soundcloud=1`}>SoundCloud</Link>
-              </li>
-            )}
-            {flags.webcam && (
-              <li>
-                <Link to={`${BROWSER_PATH}?webcam=1`}>Webcam</Link>
-              </li>
-            )}
-            {flags.keyboard && (
-              <li>
-                <Link to={`${BROWSER_PATH}?keyboard=1`}>Keyboard</Link>
-              </li>
-            )}
-          </ul>
-        </li>
-        <li>
-          Description:{' '}
-          {info.description.split(/\n+/).map((text, i) => (
-            <p key={i}>{text}</p>
-          ))}
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
 
-      <details>
-        <summary>Debug</summary>
-        <pre>{JSON.stringify(data, null, 4)}</pre>
-      </details>
-    </>
+      <div className={styles.side}>
+        <details>
+          <summary>Debug</summary>
+          <pre>{JSON.stringify(data, null, 4)}</pre>
+        </details>
+      </div>
+    </div>
   )
 }
 
