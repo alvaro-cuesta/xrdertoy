@@ -23,16 +23,6 @@ code {
     monospace;
 }
 
-a,
-a:visited,
-a:active {
-  color: #ccc;
-}
-
-a:hover {
-  color: #eee;
-}
-
 svg.icon {
   width: 1em;
   height: 1em;

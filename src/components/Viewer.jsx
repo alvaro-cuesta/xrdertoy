@@ -52,12 +52,16 @@ const Viewer = () => {
 
   return (
     <>
-      <h2>
-        <Link to={viewPath}>
-          {info.name} v{ver}
-        </Link>{' '}
-        <a href={shaderToyViewPath}>(On ShaderToy)</a>
-      </h2>
+      <header className={styles.header}>
+        <h2>
+          <Link to={viewPath}>
+            {info.name} v{ver}
+          </Link>{' '}
+          <small>
+            <a href={shaderToyViewPath}>(On ShaderToy)</a>
+          </small>
+        </h2>
+      </header>
 
       <Link to={viewPath}>
         <img

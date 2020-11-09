@@ -5,6 +5,11 @@
   height: 100%;
 }
 
+.header,
+.footer {
+  color: #999;
+}
+
 .header {
   background-color: #222;
   padding: 1em;
@@ -19,9 +24,34 @@
   text-decoration: none;
 }
 
+.header a,
+.header a:visited,
+.header a:active,
+.footer a,
+.footer a:visited,
+.footer a:active {
+  color: #ccc;
+}
+
+.header a:hover,
+.footer a:hover {
+  color: #eee;
+}
+
 .main {
   padding: 1em;
   flex-grow: 1;
+  color: #222;
+}
+
+.main a,
+.main a:visited,
+.main a:active {
+  color: #444;
+}
+
+.main a:hover {
+  color: #888;
 }
 
 .footer {
