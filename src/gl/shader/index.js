@@ -1,10 +1,17 @@
 import vertSource from './vert.js'
-import fragSource from './frag.js'
+import makeFragSource from './frag.js'
 import { compileShader, linkProgram } from '../gl-util'
 
-export const initShaderProgram = (gl) => {
+export const initShaderProgram = (gl, shaderSource) => {
   const vert = compileShader(gl, gl.VERTEX_SHADER, vertSource)
-  const frag = compileShader(gl, gl.FRAGMENT_SHADER, fragSource)
+  const frag = compileShader(
+    gl,
+    gl.FRAGMENT_SHADER,
+    makeFragSource({
+      shaderSource,
+      isLowEnd: false,
+    }),
+  )
   const program = linkProgram(gl, [vert, frag])
 
   const aVertexPosition = gl.getAttribLocation(program, 'aVertexPosition')

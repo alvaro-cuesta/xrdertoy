@@ -2,8 +2,16 @@ import { initShaderProgram } from './shader'
 import { initQuad } from './quad'
 import { mat4 } from 'gl-matrix'
 
-export const createDrawScene = (gl) => {
-  const shaderProgram = initShaderProgram(gl)
+export const createDrawScene = (renderpass) => (gl) => {
+  if (renderpass.length > 1) {
+    throw new Error('Multipass not supported')
+  }
+
+  if (renderpass[0].inputs.length > 0) {
+    throw new Error('Inputs not supported')
+  }
+
+  const shaderProgram = initShaderProgram(gl, renderpass[0].code)
   const quad = initQuad(gl)
 
   let i = 0

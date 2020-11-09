@@ -1,7 +1,12 @@
+import { useMemo } from 'react'
 import { createDrawScene } from '../gl/scene'
 import { useXRSession } from '../hooks/useXRSession'
 
-const XRButton = () => {
+const XRButton = ({ renderpass }) => {
+  const myCreateDrawScene = useMemo(() => createDrawScene(renderpass), [
+    renderpass,
+  ])
+
   const {
     isAvailable,
     isSupported,
@@ -9,7 +14,7 @@ const XRButton = () => {
     isRunning,
     start,
     stop,
-  } = useXRSession(createDrawScene)
+  } = useXRSession(myCreateDrawScene)
 
   const isDisabled = !isAvailable || !isSupported || isStarting
   const message = !isAvailable
