@@ -142,7 +142,7 @@ const Browser = () => {
   return (
     <div className={styles.Browser}>
       <div className={styles.filters}>
-        <div>
+        <div className={styles.text}>
           <input
             type="text"
             value={text}
@@ -151,7 +151,7 @@ const Browser = () => {
           />
           <button onClick={handleTextDelete}>X</button>
         </div>
-        <label>
+        <label className={styles.sort}>
           Sort by:{' '}
           <select onChange={handleSortChange} value={sort}>
             <option value="popular">Popular</option>
@@ -161,7 +161,7 @@ const Browser = () => {
             <option value="name">Name</option>
           </select>
         </label>
-        <div>
+        <div className={styles.checks}>
           <label
             className={cx(styles.filter, { [styles.checked]: hasMultipass })}
           >
@@ -222,7 +222,7 @@ const Browser = () => {
           </label>
         </div>
         {isSuccess ? (
-          <div>
+          <div className={styles.pagination}>
             <button onClick={handleFirstPage}>&lt;&lt;</button>
             <button onClick={handlePrevPage}>&lt;</button>
             Page {page} of {maxPage} ({totalShaders} shaders)

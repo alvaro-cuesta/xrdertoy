@@ -7,10 +7,13 @@
   display: flex;
   flex-direction: row;
   min-height: 2em;
+  flex-wrap: wrap;
+  margin: -0.2em -1em;
 
   & > * {
     display: inline-block;
     height: 100%;
+    margin: 0.2em 0;
   }
 
   & > * > * {
@@ -18,7 +21,7 @@
     height: 100%;
   }
 
-  & > *:not(:first-child) {
+  & > * {
     padding-left: 1em;
   }
 }
@@ -27,7 +30,7 @@
   cursor: pointer;
   border: 1px solid #222;
   border-radius: 5px;
-  margin: 0 0.2em;
+  margin: 0.2em 0.2em;
   padding: 0.1em 0.2em;
   display: inline-block;
 
@@ -84,4 +87,20 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
   }
+}
+
+.text {
+  white-space: nowrap;
+}
+
+.sort {
+  white-space: nowrap;
+}
+
+.checks {
+  margin: -0.2em;
+}
+
+.pagination {
+  white-space: nowrap;
 }
