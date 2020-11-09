@@ -6,21 +6,21 @@
 .filters {
   display: flex;
   flex-direction: row;
-  height: 2em;
-}
+  min-height: 2em;
 
-.filters > * {
-  display: inline-block;
-  height: 100%;
-}
+  & > * {
+    display: inline-block;
+    height: 100%;
+  }
 
-.filters > * > * {
-  display: inline-block;
-  height: 100%;
-}
+  & > * > * {
+    display: inline-block;
+    height: 100%;
+  }
 
-.filters > *:not(:first-child) {
-  padding-left: 1em;
+  & > *:not(:first-child) {
+    padding-left: 1em;
+  }
 }
 
 .filter {
@@ -30,30 +30,30 @@
   margin: 0 0.2em;
   padding: 0.1em 0.2em;
   display: inline-block;
-}
 
-.filter input {
-  display: none;
-}
+  input {
+    display: none;
+  }
 
-.filter.checked {
-  color: #222;
-  background-color: #e70;
-}
+  & {
+    color: #aaa;
+    background-color: #222;
 
-.filter {
-  color: #aaa;
-  background-color: #222;
-}
+    &:hover {
+      color: #e70;
+      background-color: #444;
+    }
+  }
 
-.filter:hover {
-  color: #e70;
-  background-color: #444;
-}
+  &.checked {
+    color: #222;
+    background-color: #e70;
 
-.filter.checked:hover {
-  color: #000;
-  background-color: #f91;
+    &:hover {
+      color: #000;
+      background-color: #f91;
+    }
+  }
 }
 
 .listWrapper {
@@ -69,24 +69,18 @@
   padding: 0;
   row-gap: 1em;
   column-gap: 1em;
-}
 
-@media (min-width: 481px) {
-  .resultList {
+  @media (min-width: 481px) {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
   }
-}
 
-@media (min-width: 1025px) {
-  .resultList {
+  @media (min-width: 1025px) {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
   }
-}
 
-@media (min-width: 1201px) {
-  .resultList {
+  @media (min-width: 1201px) {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
   }

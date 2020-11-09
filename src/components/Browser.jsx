@@ -9,7 +9,7 @@ import {
 } from 'use-query-params'
 import { useQueryShaderList } from '../hooks/useQueryShaderList'
 import ListItem from './ListItem'
-import styles from './Browser.module.css'
+import styles from './Browser.module.scss'
 
 const Browser = () => {
   // Query params
