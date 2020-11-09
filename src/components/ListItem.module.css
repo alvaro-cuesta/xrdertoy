@@ -32,6 +32,13 @@
   padding: 0.1em 0.2em;
 }
 
+.imageSpinner {
+  top: 3px;
+  left: 3px;
+  border-radius: 2px;
+  padding: 0.1em 0.2em;
+}
+
 .imageName {
   width: 100%;
   left: 0px;
@@ -49,6 +56,22 @@
 }
 
 .imageWrapper:hover .imageOverlay {
+  opacity: 0.1;
+}
+
+.imageSpinner {
+  opacity: 0;
+}
+
+.imageWrapper:hover .imageSpinner {
+  opacity: 0;
+}
+
+.imageWrapper.isLoading .imageSpinner {
+  opacity: 1;
+}
+
+.imageWrapper.isLoading:hover .imageSpinner {
   opacity: 0.1;
 }
 

@@ -6,9 +6,10 @@ import { SHADERTOY_PREVIEW_PATH, VIEW_PATH } from '../paths'
 import styles from './ListItem.module.css'
 import { ReactComponent as EyeIcon } from '../icons/eye.svg'
 import { ReactComponent as HeartIcon } from '../icons/heart.svg'
+import { ReactComponent as Spinner } from '../icons/spinner.svg'
 
 const ShaderListItem = ({ id }) => {
-  const { data } = useQueryShader(id)
+  const { isFetching, data } = useQueryShader(id)
   const { name, username, viewed: views, likes } = data?.Shader?.info || {}
 
   const viewPath = generatePath(VIEW_PATH, { id })
@@ -16,7 +17,9 @@ const ShaderListItem = ({ id }) => {
 
   return (
     <div className={styles.ListItem}>
-      <div className={styles.imageWrapper}>
+      <div
+        className={cx(styles.imageWrapper, { [styles.isLoading]: isFetching })}
+      >
         <Link to={viewPath} className={styles.link}>
           <img
             className={styles.image}
@@ -41,6 +44,9 @@ const ShaderListItem = ({ id }) => {
             </div>
           </>
         ) : null}
+        <div className={cx(styles.imageOverlay, styles.imageSpinner)}>
+          <Spinner className="icon" />
+        </div>
       </div>
     </div>
   )
