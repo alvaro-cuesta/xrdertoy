@@ -8,15 +8,16 @@ import { ReactComponent as HeartIcon } from '../icons/heart.svg'
 import { ReactComponent as Spinner } from '../icons/spinner.svg'
 import { ReactComponent as PlayIcon } from '../icons/play.svg'
 import { ReactComponent as StopIcon } from '../icons/stop.svg'
+import { ReactComponent as ExclamationIcon } from '../icons/exclamation.svg'
 
 const Preview = ({
   id,
-  name,
-  username,
+  message,
   views,
   likes,
   isLoading,
   action,
+  onClick,
   className,
 }) => {
   const viewPath = generatePath(VIEW_PATH, { id })
@@ -30,22 +31,24 @@ const Preview = ({
         className,
       )}
     >
-      <Link to={viewPath} className={styles.link}>
+      <Link to={viewPath} onClick={onClick}>
         <img className={styles.image} src={shaderToyPreviewPath} alt={''} />
       </Link>
 
-      <div className={cx(styles.actionButton)}>
+      <div className={styles.action}>
         {action === Preview.ACTIONS.PLAY ? (
           <PlayIcon />
         ) : action === Preview.ACTIONS.STOP ? (
           <StopIcon />
         ) : action === Preview.ACTIONS.SPIN ? (
           <Spinner />
+        ) : action === Preview.ACTIONS.ERROR ? (
+          <ExclamationIcon />
         ) : null}
       </div>
 
       {views !== undefined || likes !== undefined ? (
-        <div className={cx(styles.imageOverlay, styles.imageInfo)}>
+        <div className={cx(styles.overlay, styles.info)}>
           {views !== undefined ? (
             <div>
               {views} <EyeIcon className="icon" />
@@ -59,15 +62,11 @@ const Preview = ({
         </div>
       ) : null}
 
-      {name || username ? (
-        <div className={cx(styles.imageOverlay, styles.imageName)}>
-          {name && !username ? name : null}
-          {!name && username ? `By ${username}` : null}
-          {name && username ? `${name} by ${username}` : null}
-        </div>
+      {message ? (
+        <div className={cx(styles.overlay, styles.message)}>{message}</div>
       ) : null}
 
-      <div className={cx(styles.imageOverlay, styles.imageSpinner)}>
+      <div className={cx(styles.overlay, styles.spinner)}>
         <Spinner className="icon" />
       </div>
     </div>
@@ -78,6 +77,7 @@ Preview.ACTIONS = {
   PLAY: 'PLAY',
   STOP: 'STOP',
   SPIN: 'SPIN',
+  ERROR: 'ERROR',
 }
 
 Preview.propTypes = {
@@ -88,6 +88,7 @@ Preview.propTypes = {
   isLoading: PropTypes.bool,
   className: PropTypes.string,
   action: PropTypes.oneOf(Object.values(Preview.ACTIONS)),
+  onClick: PropTypes.func,
 }
 
 export default Preview
