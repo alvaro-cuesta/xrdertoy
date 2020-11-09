@@ -7,13 +7,30 @@ import {
   VIEW_PATH,
 } from '../paths'
 import styles from './Viewer.module.css'
-import XRButton from './XRButton'
 import { getFlags } from '../shadertoy/flags'
 import Preview from './Preview'
+import { useMemo } from 'react'
+import { createDrawScene } from '../gl/scene'
+import { useXRSession } from '../hooks/useXRSession'
 
 const Viewer = () => {
   const { id } = useParams()
   const { isLoading, isError, error, data, refetch } = useQueryShader(id)
+  const { info, renderpass } = data?.Shader || {}
+
+  const myCreateDrawScene = useMemo(
+    () => (renderpass ? createDrawScene(renderpass) : null),
+    [renderpass],
+  )
+
+  const {
+    isAvailable,
+    isSupported,
+    isStarting,
+    isRunning,
+    start,
+    stop,
+  } = useXRSession(myCreateDrawScene)
 
   if (isLoading) {
     return `Loading shader ${id}`
@@ -22,15 +39,11 @@ const Viewer = () => {
   if (isError || data.Error) {
     return (
       <div>
-        Error loading shader {id}: {data.Error || error}{' '}
+        Error loading shader {id}: {error?.message || data?.Error}{' '}
         <button onClick={refetch}>Retry</button>
       </div>
     )
   }
-
-  const {
-    Shader: { info, renderpass },
-  } = data
 
   const viewPath = generatePath(VIEW_PATH, { id })
   const shaderToyViewPath = generatePath(SHADERTOY_VIEW_PATH, { id })
@@ -69,11 +82,33 @@ const Viewer = () => {
           id={id}
           views={info.viewed}
           likes={info.likes}
+          message={
+            !isAvailable
+              ? 'WebXR is not available'
+              : !isSupported
+              ? 'WebXR Immersive VR is not supported'
+              : undefined
+          }
           className={styles.preview}
-          action={Preview.ACTIONS.PLAY}
+          action={
+            !isAvailable || !isSupported
+              ? Preview.ACTIONS.ERROR
+              : isStarting
+              ? Preview.ACTIONS.SPIN
+              : !isRunning
+              ? Preview.ACTIONS.PLAY
+              : Preview.ACTIONS.STOP
+          }
+          onClick={
+            !isAvailable || !isSupported
+              ? undefined
+              : isStarting
+              ? undefined
+              : !isRunning
+              ? start
+              : stop
+          }
         />
-
-        <XRButton renderpass={renderpass} />
       </div>
 
       <div className={styles.info}>

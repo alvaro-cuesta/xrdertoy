@@ -30,6 +30,10 @@ export const useXRSession = (createDrawScene) => {
   }, [])
 
   const start = useCallback(() => {
+    if (!createDrawScene) {
+      return
+    }
+
     setIsStarting(true)
     ;(async () => {
       xrSession.current = await xr.requestSession('immersive-vr', {
