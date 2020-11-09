@@ -62,6 +62,9 @@ const Browser = () => {
     },
     [setText],
   )
+  const handleTextDelete = useCallback(() => {
+    setText(undefined)
+  }, [setText])
 
   // Filters
   const handleCheckGPUSound = useCallback(
@@ -140,6 +143,7 @@ const Browser = () => {
       <div className={styles.filters}>
         <label>
           Text: <input type="text" value={text} onChange={handleTextChange} />
+          <button onClick={handleTextDelete}>X</button>
         </label>
         <label>
           Sort by:{' '}
