@@ -16,16 +16,17 @@ import { getFlags } from '../shadertoy/flags'
 
 const Viewer = () => {
   const { id } = useParams()
-  const { isLoading, isError, data, refetch } = useQueryShader(id)
+  const { isLoading, isError, error, data, refetch } = useQueryShader(id)
 
   if (isLoading) {
     return `Loading shader ${id}`
   }
 
-  if (isError) {
+  if (isError || data.Error) {
     return (
       <div>
-        Error loading shader {id} <button onClick={refetch}>Retry</button>
+        Error loading shader {id}: {data.Error || error}{' '}
+        <button onClick={refetch}>Retry</button>
       </div>
     )
   }
