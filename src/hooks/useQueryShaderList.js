@@ -11,6 +11,7 @@ export const useQueryShaderList = (
   hasWebcam,
   hasMultipass,
   hasSoundCloud,
+  hasKeyboard,
 ) =>
   useQuery(
     [
@@ -23,6 +24,7 @@ export const useQueryShaderList = (
       hasWebcam,
       hasMultipass,
       hasSoundCloud,
+      hasKeyboard,
     ],
     () => {
       const controller = new AbortController()
@@ -35,7 +37,9 @@ export const useQueryShaderList = (
           hasMicrophone ? '&filter=soundinput' : ''
         }${hasWebcam ? '&filter=webcam' : ''}${
           hasMultipass ? '&filter=multipass' : ''
-        }${hasSoundCloud ? '&filter=musicstream' : ''}&sort=${sort}&from=${
+        }${hasSoundCloud ? '&filter=musicstream' : ''}${
+          hasKeyboard ? '&filter=keyboard' : ''
+        }&sort=${sort}&from=${
           (page - 1) * resultsPerPage
         }&num=${resultsPerPage}&key=${APP_KEY}`,
         {

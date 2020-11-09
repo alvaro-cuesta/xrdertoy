@@ -32,6 +32,7 @@ const Browser = () => {
     'soundcloud',
     BooleanParam,
   )
+  const [hasKeyboard, setHasKeyboard] = useQueryParam('keyboard', BooleanParam)
 
   // List fetching
   const {
@@ -51,6 +52,7 @@ const Browser = () => {
     hasWebcam,
     hasMultipass,
     hasSoundCloud,
+    hasKeyboard,
   )
 
   // Text
@@ -91,6 +93,12 @@ const Browser = () => {
       setHasSoundCloud(e.target.checked ? true : undefined)
     },
     [setHasSoundCloud],
+  )
+  const handleCheckKeyboard = useCallback(
+    (e) => {
+      setHasKeyboard(e.target.checked ? true : undefined)
+    },
+    [setHasKeyboard],
   )
 
   // Sort
@@ -183,6 +191,14 @@ const Browser = () => {
               onChange={handleCheckWebcam}
             />
             Webcam
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={hasKeyboard}
+              onChange={handleCheckKeyboard}
+            />
+            Keyboard
           </label>
         </div>
         {isSuccess ? (
