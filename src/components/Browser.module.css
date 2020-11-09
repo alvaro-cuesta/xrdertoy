@@ -12,6 +12,38 @@
   padding-left: 1em;
 }
 
+.filter {
+  cursor: pointer;
+  border: 1px solid #222;
+  border-radius: 5px;
+  margin: 0 0.2em;
+  padding: 0.1em 0.2em;
+}
+
+.filter input {
+  display: none;
+}
+
+.filter.checked {
+  color: #222;
+  background-color: #e70;
+}
+
+.filter {
+  color: #aaa;
+  background-color: #222;
+}
+
+.filter:hover {
+  color: #e70;
+  background-color: #444;
+}
+
+.filter.checked:hover {
+  color: #000;
+  background-color: #f91;
+}
+
 .listWrapper {
   padding-top: 1em;
 }

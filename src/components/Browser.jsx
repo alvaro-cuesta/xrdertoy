@@ -1,4 +1,5 @@
 import { useCallback, useEffect } from 'react'
+import cx from 'classnames'
 import {
   useQueryParam,
   withDefault,
@@ -161,7 +162,9 @@ const Browser = () => {
           </select>
         </label>
         <div>
-          <label>
+          <label
+            className={cx(styles.filter, { [styles.checked]: hasMultipass })}
+          >
             <input
               type="checkbox"
               checked={hasMultipass}
@@ -169,7 +172,9 @@ const Browser = () => {
             />
             Multipass
           </label>
-          <label>
+          <label
+            className={cx(styles.filter, { [styles.checked]: hasGPUSound })}
+          >
             <input
               type="checkbox"
               checked={hasGPUSound}
@@ -177,7 +182,9 @@ const Browser = () => {
             />
             GPU Sound
           </label>
-          <label>
+          <label
+            className={cx(styles.filter, { [styles.checked]: hasMicrophone })}
+          >
             <input
               type="checkbox"
               checked={hasMicrophone}
@@ -185,7 +192,9 @@ const Browser = () => {
             />
             Microphone
           </label>
-          <label>
+          <label
+            className={cx(styles.filter, { [styles.checked]: hasSoundCloud })}
+          >
             <input
               type="checkbox"
               checked={hasSoundCloud}
@@ -193,7 +202,7 @@ const Browser = () => {
             />
             SoundCloud
           </label>
-          <label>
+          <label className={cx(styles.filter, { [styles.checked]: hasWebcam })}>
             <input
               type="checkbox"
               checked={hasWebcam}
@@ -201,7 +210,9 @@ const Browser = () => {
             />
             Webcam
           </label>
-          <label>
+          <label
+            className={cx(styles.filter, { [styles.checked]: hasKeyboard })}
+          >
             <input
               type="checkbox"
               checked={hasKeyboard}
