@@ -32,7 +32,7 @@ const Viewer = () => {
   }
 
   const {
-    Shader: { info },
+    Shader: { info, renderpass },
   } = data
 
   const viewPath = generatePath(VIEW_PATH, { id })
@@ -60,8 +60,10 @@ const Viewer = () => {
         <h2>
           <Link to={viewPath}>{info.name}</Link>{' '}
           <small>
-            by <a href={shaderToyProfilePath}>{info.username}</a>{' '}
-            <a href={shaderToyViewPath}>(on ShaderToy)</a>
+            by{' '}
+            <Link to={`${BROWSER_PATH}?text=${info.username}`}>
+              {info.username}
+            </Link>
           </small>
         </h2>
       </header>
@@ -85,6 +87,10 @@ const Viewer = () => {
         <li>
           <EyeIcon className="icon" /> {info.viewed}{' '}
           <HeartIcon className="icon" /> {info.likes}
+        </li>
+        <li>
+          On ShaderToy: <a href={shaderToyViewPath}>shader</a>,{' '}
+          <a href={shaderToyProfilePath}>{info.username}</a>
         </li>
         <li>
           Tags:{' '}

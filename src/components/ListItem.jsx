@@ -1,12 +1,8 @@
 import PropTypes from 'prop-types'
+import cx from 'classnames'
 import { generatePath, Link } from 'react-router-dom'
 import { useQueryShader } from '../hooks/useQueryShader'
-import {
-  SHADERTOY_PREVIEW_PATH,
-  SHADERTOY_USER_PATH,
-  SHADERTOY_VIEW_PATH,
-  VIEW_PATH,
-} from '../paths'
+import { SHADERTOY_PREVIEW_PATH, VIEW_PATH } from '../paths'
 import styles from './ListItem.module.css'
 import { ReactComponent as EyeIcon } from '../icons/eye.svg'
 import { ReactComponent as HeartIcon } from '../icons/heart.svg'
@@ -17,50 +13,34 @@ const ShaderListItem = ({ id }) => {
 
   const viewPath = generatePath(VIEW_PATH, { id })
   const shaderToyPreviewPath = generatePath(SHADERTOY_PREVIEW_PATH, { id })
-  const shaderToyViewPath = generatePath(SHADERTOY_VIEW_PATH, { id })
-  const shaderToyProfilePath = username
-    ? generatePath(SHADERTOY_USER_PATH, { username })
-    : null
 
   return (
     <div className={styles.ListItem}>
-      <Link to={viewPath} className={styles.link}>
-        <img
-          className={styles.image}
-          src={shaderToyPreviewPath}
-          alt={data?.Shader ? `Preview` : `Preview for shader ${id} (loading)`}
-        />
-      </Link>
-      <div>
-        <div className={styles.bottomInfo}>
-          {data?.Shader ? (
-            <>
+      <div className={styles.imageWrapper}>
+        <Link to={viewPath} className={styles.link}>
+          <img
+            className={styles.image}
+            src={shaderToyPreviewPath}
+            alt={
+              data?.Shader ? `Preview` : `Preview for shader ${id} (loading)`
+            }
+          />
+        </Link>
+        {data?.Shader ? (
+          <>
+            <div className={cx(styles.imageOverlay, styles.imageInfo)}>
               <div>
-                <Link to={viewPath}>{name}</Link>
+                {views} <EyeIcon className="icon" />
               </div>
-              <div className={styles.data}>
-                {data?.Shader ? (
-                  <>
-                    <EyeIcon className="icon" /> {views}{' '}
-                    <HeartIcon className="icon" /> {likes}
-                  </>
-                ) : null}
+              <div>
+                {likes} <HeartIcon className="icon" />
               </div>
-            </>
-          ) : null}
-        </div>
-        <div className={styles.bottomInfo}>
-          <div>
-            {data?.Shader ? (
-              <>
-                by <a href={shaderToyProfilePath}>{username}</a>
-              </>
-            ) : null}
-          </div>
-          <div>
-            <a href={shaderToyViewPath}>On ShaderToy</a>
-          </div>
-        </div>
+            </div>
+            <div className={cx(styles.imageOverlay, styles.imageName)}>
+              {name} by {username}
+            </div>
+          </>
+        ) : null}
       </div>
     </div>
   )
