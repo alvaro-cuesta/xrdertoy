@@ -115,7 +115,7 @@ const Browser = () => {
 
   // Pagination
   const totalShaders = data?.Shaders || 0
-  const maxPage = Math.ceil(totalShaders / Browser.RESULTS_PER_PAGE)
+  const maxPage = Math.ceil(totalShaders / Browser.RESULTS_PER_PAGE) || 1
 
   useEffect(() => {
     if (page > maxPage) {
