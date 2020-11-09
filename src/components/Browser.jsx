@@ -128,70 +128,74 @@ const Browser = () => {
   }, [setPage, maxPage])
 
   return (
-    <>
-      <label>
-        Text: <input type="text" value={text} onChange={handleTextChange} />
-      </label>
-      <label>
-        Sort by:{' '}
-        <select onChange={handleSortChange} value={sort}>
-          <option value="popular">Popular</option>
-          <option value="newest">Newest</option>
-          <option value="love">Love</option>
-          <option value="hot">Hot</option>
-          <option value="name">Name</option>
-        </select>
-      </label>
-      <label>
-        <input
-          type="checkbox"
-          checked={hasMultipass}
-          onChange={handleCheckMultipass}
-        />
-        Multipass
-      </label>
-      <label>
-        <input
-          type="checkbox"
-          checked={hasGPUSound}
-          onChange={handleCheckGPUSound}
-        />
-        GPU Sound
-      </label>
-      <label>
-        <input
-          type="checkbox"
-          checked={hasMicrophone}
-          onChange={handleCheckMicrophone}
-        />
-        Microphone
-      </label>
-      <label>
-        <input
-          type="checkbox"
-          checked={hasSoundCloud}
-          onChange={handleCheckSoundCloud}
-        />
-        SoundCloud
-      </label>
-      <label>
-        <input
-          type="checkbox"
-          checked={hasWebcam}
-          onChange={handleCheckWebcam}
-        />
-        Webcam
-      </label>
-      {isSuccess ? (
-        <>
-          <button onClick={handleFirstPage}>&lt;&lt;</button>
-          <button onClick={handlePrevPage}>&lt;</button>
-          Page {page} of {maxPage} ({totalShaders} shaders)
-          <button onClick={handleNextPage}>&gt;</button>
-          <button onClick={handleLastPage}>&gt;&gt;</button>
-        </>
-      ) : null}
-      <div>
+    <div className={styles.Browser}>
+      <div className={styles.filters}>
+        <label>
+          Text: <input type="text" value={text} onChange={handleTextChange} />
+        </label>
+        <label>
+          Sort by:{' '}
+          <select onChange={handleSortChange} value={sort}>
+            <option value="popular">Popular</option>
+            <option value="newest">Newest</option>
+            <option value="love">Love</option>
+            <option value="hot">Hot</option>
+            <option value="name">Name</option>
+          </select>
+        </label>
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              checked={hasMultipass}
+              onChange={handleCheckMultipass}
+            />
+            Multipass
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={hasGPUSound}
+              onChange={handleCheckGPUSound}
+            />
+            GPU Sound
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={hasMicrophone}
+              onChange={handleCheckMicrophone}
+            />
+            Microphone
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={hasSoundCloud}
+              onChange={handleCheckSoundCloud}
+            />
+            SoundCloud
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={hasWebcam}
+              onChange={handleCheckWebcam}
+            />
+            Webcam
+          </label>
+        </div>
+        {isSuccess ? (
+          <div>
+            <button onClick={handleFirstPage}>&lt;&lt;</button>
+            <button onClick={handlePrevPage}>&lt;</button>
+            Page {page} of {maxPage} ({totalShaders} shaders)
+            <button onClick={handleNextPage}>&gt;</button>
+            <button onClick={handleLastPage}>&gt;&gt;</button>
+          </div>
+        ) : null}
+      </div>
+      <div className={styles.listWrapper}>
         {isError ? (
           <div>
             Error loading shaders <button onClick={refetch}>Retry</button>
@@ -210,7 +214,7 @@ const Browser = () => {
           </ul>
         )}
       </div>
-    </>
+    </div>
   )
 }
 

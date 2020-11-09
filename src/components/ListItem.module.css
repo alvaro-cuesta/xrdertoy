@@ -3,6 +3,12 @@
   flex-direction: column;
 }
 
+.bottomInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .image {
   width: 100%;
   border-radius: 5px;

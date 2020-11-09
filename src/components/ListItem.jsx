@@ -11,40 +11,16 @@ import styles from './ListItem.module.css'
 import { ReactComponent as EyeIcon } from '../icons/eye.svg'
 import { ReactComponent as HeartIcon } from '../icons/heart.svg'
 
-const ShaderListItemInfo = ({ id, info }) => {
-  const { name, username, viewed: views, likes } = info
-
-  const viewPath = generatePath(VIEW_PATH, { id })
-  const shaderToyProfilePath = username
-    ? generatePath(SHADERTOY_USER_PATH, { username })
-    : null
-
-  return (
-    <>
-      <Link to={viewPath}>{name}</Link> by{' '}
-      <a href={shaderToyProfilePath}>{username}</a>
-      <EyeIcon className="icon" /> {views} <HeartIcon className="icon" />{' '}
-      {likes}
-    </>
-  )
-}
-
-ShaderListItemInfo.propTypes = {
-  id: PropTypes.string.isRequired,
-  info: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired,
-    viewed: PropTypes.number.isRequired,
-    likes: PropTypes.number.isRequired,
-  }).isRequired,
-}
-
 const ShaderListItem = ({ id }) => {
   const { data } = useQueryShader(id)
+  const { name, username, viewed: views, likes } = data?.Shader?.info || {}
 
   const viewPath = generatePath(VIEW_PATH, { id })
   const shaderToyPreviewPath = generatePath(SHADERTOY_PREVIEW_PATH, { id })
   const shaderToyViewPath = generatePath(SHADERTOY_VIEW_PATH, { id })
+  const shaderToyProfilePath = username
+    ? generatePath(SHADERTOY_USER_PATH, { username })
+    : null
 
   return (
     <div className={styles.ListItem}>
@@ -56,11 +32,32 @@ const ShaderListItem = ({ id }) => {
         />
       </Link>
       <div>
-        {data?.Shader ? (
-          <ShaderListItemInfo id={id} info={data?.Shader.info} />
-        ) : null}
+        <div className={styles.bottomInfo}>
+          {data?.Shader ? (
+            <>
+              <div>
+                <Link to={viewPath}>{name}</Link>
+              </div>
+              <div>
+                {data?.Shader ? (
+                  <>
+                    <EyeIcon className="icon" /> {views}{' '}
+                    <HeartIcon className="icon" /> {likes}
+                  </>
+                ) : null}
+              </div>
+            </>
+          ) : null}
+        </div>
+        <div className={styles.bottomInfo}>
+          <div>
+            by <a href={shaderToyProfilePath}>{username}</a>
+          </div>
+          <div>
+            <a href={shaderToyViewPath}>On ShaderToy</a>
+          </div>
+        </div>
       </div>
-      <a href={shaderToyViewPath}>On ShaderToy</a>
     </div>
   )
 }
