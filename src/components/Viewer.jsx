@@ -12,6 +12,7 @@ import styles from './Viewer.module.css'
 import XRButton from './XRButton'
 import { ReactComponent as EyeIcon } from '../icons/eye.svg'
 import { ReactComponent as HeartIcon } from '../icons/heart.svg'
+import { getFlags } from '../shadertoy/flags'
 
 const Viewer = () => {
   const { id } = useParams()
@@ -30,7 +31,7 @@ const Viewer = () => {
   }
 
   const {
-    Shader: { info, renderpass },
+    Shader: { info },
   } = data
 
   const viewPath = generatePath(VIEW_PATH, { id })
@@ -49,6 +50,8 @@ const Viewer = () => {
     .toString()
     .padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`
   const dateTimeText = `${dateText} ${timeText}`
+
+  const flags = getFlags(info.flags)
 
   return (
     <>
@@ -83,13 +86,26 @@ const Viewer = () => {
           <HeartIcon className="icon" /> {info.likes}
         </li>
         <li>
-          Tags:{' '}
-          {info.tags.map((tag, i) => (
-            <Fragment key={tag}>
-              <Link to={`${BROWSER_PATH}?text=${tag}`}>{tag}</Link>
-              {i !== info.tags.length - 1 ? ', ' : null}
-            </Fragment>
-          ))}
+          Tags:
+          <ul>
+            {info.tags.map((tag, i) => (
+              <li key={tag}>
+                <Link to={`${BROWSER_PATH}?text=${tag}`}>{tag}</Link>
+              </li>
+            ))}
+          </ul>
+        </li>
+        <li>
+          Flags:
+          <ul>
+            {flags.vr && <li>VR</li>}
+            {flags.multipass && <li>Multipass</li>}
+            {flags.gpuSound && <li>GPU Sound</li>}
+            {flags.microphone && <li>Microphone</li>}
+            {flags.soundCloud && <li>SoundCloud</li>}
+            {flags.webcam && <li>Webcam</li>}
+            {flags.keyboard && <li>Keyboard</li>}
+          </ul>
         </li>
         <li>
           Description:{' '}
@@ -101,7 +117,7 @@ const Viewer = () => {
 
       <details>
         <summary>Debug</summary>
-        <pre>{JSON.stringify(renderpass, null, 4)}</pre>
+        <pre>{JSON.stringify(data, null, 4)}</pre>
       </details>
     </>
   )

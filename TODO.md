@@ -1,6 +1,5 @@
 - Viewer
 - Published info?
-- Flags info?
 - Hasliked info?
 - ver on viewer (expect always 0.1)
 - PHPBB in desciption
