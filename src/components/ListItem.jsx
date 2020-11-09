@@ -21,13 +21,7 @@ const ShaderListItem = ({ id }) => {
         className={cx(styles.imageWrapper, { [styles.isLoading]: isFetching })}
       >
         <Link to={viewPath} className={styles.link}>
-          <img
-            className={styles.image}
-            src={shaderToyPreviewPath}
-            alt={
-              data?.Shader ? `Preview` : `Preview for shader ${id} (loading)`
-            }
-          />
+          <img className={styles.image} src={shaderToyPreviewPath} alt={''} />
         </Link>
         {data?.Shader ? (
           <>
