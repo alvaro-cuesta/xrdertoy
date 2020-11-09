@@ -21,18 +21,24 @@
   width: 100%;
 }
 
+.imageOverlay {
+  pointer-events: none;
+  color: #000;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.75);
+  transition: opacity 0.3s;
+  opacity: 1;
+
+  .Preview:hover & {
+    opacity: 0.1;
+  }
+}
+
 .imageInfo {
   top: 3px;
   right: 3px;
   border-radius: 2px;
   text-align: right;
-  padding: 0.1em 0.2em;
-}
-
-.imageSpinner {
-  top: 3px;
-  left: 3px;
-  border-radius: 2px;
   padding: 0.1em 0.2em;
 }
 
@@ -43,33 +49,23 @@
   padding: 0.1em 0.2em 0.2em 0.2em;
 }
 
-.imageOverlay {
-  pointer-events: none;
-  color: #000;
-  position: absolute;
-  background-color: rgba(255, 255, 255, 0.75);
-  transition: opacity 0.3s;
-  opacity: 1;
-}
-
-.Preview:hover .imageOverlay {
-  opacity: 0.1;
-}
-
 .imageSpinner {
-  opacity: 0;
-}
+  top: 3px;
+  left: 3px;
+  border-radius: 2px;
+  padding: 0.1em 0.2em;
 
-.Preview:hover .imageSpinner {
   opacity: 0;
-}
 
-.Preview.isLoading {
-  .imageSpinner {
+  .Preview:hover & {
+    opacity: 0;
+  }
+
+  .Preview.isLoading & {
     opacity: 1;
   }
-}
 
-.Preview.isLoading:hover .imageSpinner {
-  opacity: 0.1;
+  .Preview.isLoading:hover & {
+    opacity: 0.1;
+  }
 }
