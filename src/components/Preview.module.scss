@@ -28,6 +28,7 @@
   background-color: rgba(255, 255, 255, 0.75);
   transition: opacity 0.3s;
   opacity: 1;
+  user-select: none;
 
   .Preview:hover & {
     opacity: 0.1;
@@ -67,5 +68,37 @@
 
   .Preview.isLoading:hover & {
     opacity: 0.1;
+  }
+}
+
+.actionButton {
+  --svg-color: #fff;
+  fill: white;
+
+  pointer-events: none;
+  user-select: none;
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+  padding: 0.1em 0.2em;
+
+  transition: opacity 0.3s;
+  opacity: 0.25;
+  text-align: center;
+
+  svg {
+    display: block;
+    width: 5em;
+    height: 100%;
+    margin: auto;
+  }
+
+  .Preview:hover & {
+    opacity: 0.75;
   }
 }

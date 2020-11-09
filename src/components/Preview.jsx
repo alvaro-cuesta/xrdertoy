@@ -6,6 +6,8 @@ import styles from './Preview.module.scss'
 import { ReactComponent as EyeIcon } from '../icons/eye.svg'
 import { ReactComponent as HeartIcon } from '../icons/heart.svg'
 import { ReactComponent as Spinner } from '../icons/spinner.svg'
+import { ReactComponent as PlayIcon } from '../icons/play.svg'
+import { ReactComponent as StopIcon } from '../icons/stop.svg'
 
 const Preview = ({
   id,
@@ -14,6 +16,7 @@ const Preview = ({
   views,
   likes,
   isLoading,
+  action,
   className,
 }) => {
   const viewPath = generatePath(VIEW_PATH, { id })
@@ -30,6 +33,16 @@ const Preview = ({
       <Link to={viewPath} className={styles.link}>
         <img className={styles.image} src={shaderToyPreviewPath} alt={''} />
       </Link>
+
+      <div className={cx(styles.actionButton)}>
+        {action === Preview.ACTIONS.PLAY ? (
+          <PlayIcon />
+        ) : action === Preview.ACTIONS.STOP ? (
+          <StopIcon />
+        ) : action === Preview.ACTIONS.SPIN ? (
+          <Spinner />
+        ) : null}
+      </div>
 
       {views !== undefined || likes !== undefined ? (
         <div className={cx(styles.imageOverlay, styles.imageInfo)}>
@@ -61,6 +74,12 @@ const Preview = ({
   )
 }
 
+Preview.ACTIONS = {
+  PLAY: 'PLAY',
+  STOP: 'STOP',
+  SPIN: 'SPIN',
+}
+
 Preview.propTypes = {
   name: PropTypes.string,
   username: PropTypes.string,
@@ -68,6 +87,7 @@ Preview.propTypes = {
   likes: PropTypes.number,
   isLoading: PropTypes.bool,
   className: PropTypes.string,
+  action: PropTypes.oneOf(Object.values(Preview.ACTIONS)),
 }
 
 export default Preview

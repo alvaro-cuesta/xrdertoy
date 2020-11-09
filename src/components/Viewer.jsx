@@ -70,6 +70,7 @@ const Viewer = () => {
           views={info.viewed}
           likes={info.likes}
           className={styles.preview}
+          action={Preview.ACTIONS.PLAY}
         />
 
         <XRButton renderpass={renderpass} />
