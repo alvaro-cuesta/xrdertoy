@@ -7,7 +7,7 @@
   position: relative;
   border-radius: 5px;
   border: 2px solid #222;
-  transition: box-shadow 0.1s, transform 0.1s;
+  transition: box-shadow 0.3s, transform 0.1s;
   backface-visibility: hidden;
   transform: perspective(400px) translateZ(1px);
   -webkit-font-smoothing: antialised;
@@ -44,6 +44,12 @@
   color: #000;
   position: absolute;
   background-color: rgba(255, 255, 255, 0.75);
+  transition: opacity 0.3s;
+  opacity: 1;
+}
+
+.imageWrapper:hover .imageOverlay {
+  opacity: 0.1;
 }
 
 .data {
