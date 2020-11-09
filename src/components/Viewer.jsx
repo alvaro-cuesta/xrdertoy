@@ -8,29 +8,11 @@ import {
 } from '../paths'
 import styles from './Viewer.module.scss'
 import { getFlags } from '../shadertoy/flags'
-import Preview from './Preview'
-import { useMemo } from 'react'
-import { createDrawScene } from '../gl/scene'
-import { useXRSession } from '../hooks/useXRSession'
+import ViewerButton from './ViewerButton'
 
 const Viewer = () => {
   const { id } = useParams()
   const { isLoading, isError, error, data, refetch } = useQueryShader(id)
-  const { info, renderpass } = data?.Shader || {}
-
-  const myCreateDrawScene = useMemo(
-    () => (renderpass ? createDrawScene(renderpass) : null),
-    [renderpass],
-  )
-
-  const {
-    isAvailable,
-    isSupported,
-    isStarting,
-    isRunning,
-    start,
-    stop,
-  } = useXRSession(myCreateDrawScene)
 
   if (isLoading) {
     return `Loading shader ${id}`
@@ -44,6 +26,8 @@ const Viewer = () => {
       </div>
     )
   }
+
+  const { info } = data?.Shader
 
   const viewPath = generatePath(VIEW_PATH, { id })
   const shaderToyViewPath = generatePath(SHADERTOY_VIEW_PATH, { id })
@@ -78,37 +62,7 @@ const Viewer = () => {
           </h2>
         </header>
 
-        <Preview
-          id={id}
-          views={info.viewed}
-          likes={info.likes}
-          message={
-            !isAvailable
-              ? 'WebXR is not available'
-              : !isSupported
-              ? 'WebXR Immersive VR is not supported'
-              : undefined
-          }
-          className={styles.preview}
-          action={
-            !isAvailable || !isSupported
-              ? Preview.ACTIONS.ERROR
-              : isStarting
-              ? Preview.ACTIONS.SPIN
-              : !isRunning
-              ? Preview.ACTIONS.PLAY
-              : Preview.ACTIONS.STOP
-          }
-          onClick={
-            !isAvailable || !isSupported
-              ? undefined
-              : isStarting
-              ? undefined
-              : !isRunning
-              ? start
-              : stop
-          }
-        />
+        <ViewerButton id={id} shader={data?.Shader} />
       </div>
 
       <div className={styles.info}>

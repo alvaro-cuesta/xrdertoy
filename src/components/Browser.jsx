@@ -8,7 +8,7 @@ import {
   BooleanParam,
 } from 'use-query-params'
 import { useQueryShaderList } from '../hooks/useQueryShaderList'
-import ListItem from './ListItem'
+import BrowserItem from './BrowserItem'
 import styles from './Browser.module.scss'
 
 const Browser = () => {
@@ -244,7 +244,7 @@ const Browser = () => {
           <ul className={styles.resultList}>
             {data.Results.map((id) => (
               <li key={id}>
-                <ListItem id={id} />
+                <BrowserItem id={id} />
               </li>
             ))}
           </ul>
