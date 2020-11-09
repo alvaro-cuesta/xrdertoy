@@ -86,8 +86,8 @@ const Viewer = () => {
           <HeartIcon className="icon" /> {info.likes}
         </li>
         <li>
-          Tags:
-          <ul>
+          Tags:{' '}
+          <ul className={styles.commaList}>
             {info.tags.map((tag, i) => (
               <li key={tag}>
                 <Link to={`${BROWSER_PATH}?text=${tag}`}>{tag}</Link>
@@ -96,15 +96,43 @@ const Viewer = () => {
           </ul>
         </li>
         <li>
-          Flags:
-          <ul>
-            {flags.vr && <li>VR</li>}
-            {flags.multipass && <li>Multipass</li>}
-            {flags.gpuSound && <li>GPU Sound</li>}
-            {flags.microphone && <li>Microphone</li>}
-            {flags.soundCloud && <li>SoundCloud</li>}
-            {flags.webcam && <li>Webcam</li>}
-            {flags.keyboard && <li>Keyboard</li>}
+          Flags:{' '}
+          <ul className={styles.commaList}>
+            {flags.vr && (
+              <li>
+                <Link to={BROWSER_PATH}>VR</Link>
+              </li>
+            )}
+            {flags.multipass && (
+              <li>
+                <Link to={`${BROWSER_PATH}?multipass=1`}>Multipass</Link>
+              </li>
+            )}
+            {flags.gpuSound && (
+              <li>
+                <Link to={`${BROWSER_PATH}?gpusound=1`}>GPU Sound</Link>
+              </li>
+            )}
+            {flags.microphone && (
+              <li>
+                <Link to={`${BROWSER_PATH}?microphone=1`}>Microphone</Link>
+              </li>
+            )}
+            {flags.soundCloud && (
+              <li>
+                <Link to={`${BROWSER_PATH}?soundcloud=1`}>SoundCloud</Link>
+              </li>
+            )}
+            {flags.webcam && (
+              <li>
+                <Link to={`${BROWSER_PATH}?webcam=1`}>Webcam</Link>
+              </li>
+            )}
+            {flags.keyboard && (
+              <li>
+                <Link to={`${BROWSER_PATH}?keyboard=1`}>Keyboard</Link>
+              </li>
+            )}
           </ul>
         </li>
         <li>

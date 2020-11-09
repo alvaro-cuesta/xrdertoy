@@ -21,3 +21,18 @@
   text-decoration: underline;
   text-decoration-style: dotted;
 }
+
+.commaList {
+  display: inline;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.commaList > li {
+  display: inline;
+}
+
+.commaList > li:not(:last-child)::after {
+  content: ', ';
+}
