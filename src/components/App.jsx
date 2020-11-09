@@ -9,7 +9,7 @@ import {
 } from '../paths'
 import Browser from './Browser'
 import Viewer from './Viewer'
-import styles from './App.module.css'
+import styles from './App.module.scss'
 
 const queryCache = new QueryCache()
 
@@ -23,12 +23,14 @@ const App = () => (
               <Link to={ROOT_PATH}>XRderToy Viewer</Link>
             </h1>
           </header>
+
           <main className={styles.main}>
             <Switch>
               <Route exact path={ROOT_PATH} component={Browser} />
               <Route exact path={VIEW_PATH} component={Viewer} />
             </Switch>
           </main>
+
           <footer className={styles.footer}>
             <ul>
               <li>

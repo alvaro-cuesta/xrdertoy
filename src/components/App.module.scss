@@ -1,0 +1,51 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.header {
+  padding: 1em;
+
+  h1 {
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.header,
+.footer {
+  background-color: #222;
+  color: #999;
+
+  a,
+  a:visited,
+  a:active {
+    color: #ccc;
+  }
+
+  a:hover {
+    color: #eee;
+  }
+}
+
+.main {
+  padding: 1em;
+  flex-grow: 1;
+  color: #222;
+
+  a,
+  a:visited,
+  a:active {
+    color: #444;
+  }
+
+  a:hover {
+    color: #888;
+  }
+}

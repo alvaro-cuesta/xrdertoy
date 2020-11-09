@@ -6,7 +6,7 @@ import {
   SHADERTOY_VIEW_PATH,
   VIEW_PATH,
 } from '../paths'
-import styles from './Viewer.module.css'
+import styles from './Viewer.module.scss'
 import { getFlags } from '../shadertoy/flags'
 import Preview from './Preview'
 import { useMemo } from 'react'
