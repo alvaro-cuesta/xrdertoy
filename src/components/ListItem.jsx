@@ -51,7 +51,11 @@ const ShaderListItem = ({ id }) => {
         </div>
         <div className={styles.bottomInfo}>
           <div>
-            by <a href={shaderToyProfilePath}>{username}</a>
+            {data?.Shader ? (
+              <>
+                by <a href={shaderToyProfilePath}>{username}</a>
+              </>
+            ) : null}
           </div>
           <div>
             <a href={shaderToyViewPath}>On ShaderToy</a>
