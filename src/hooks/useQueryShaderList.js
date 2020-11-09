@@ -6,7 +6,7 @@ export const useQueryShaderList = (
   text,
   page,
   sort,
-  hasSoundOutput,
+  hasGPUSound,
   hasMicrophone,
   hasWebcam,
   hasMultipass,
@@ -19,7 +19,7 @@ export const useQueryShaderList = (
       text,
       page,
       sort,
-      hasSoundOutput,
+      hasGPUSound,
       hasMicrophone,
       hasWebcam,
       hasMultipass,
@@ -33,7 +33,7 @@ export const useQueryShaderList = (
       const promise = fetch(
         `https://www.shadertoy.com/api/v1/shaders${
           text ? `/query/${encodeURIComponent(text)}` : ''
-        }?filter=vr${hasSoundOutput ? '&filter=soundoutput' : ''}${
+        }?filter=vr${hasGPUSound ? '&filter=soundoutput' : ''}${
           hasMicrophone ? '&filter=soundinput' : ''
         }${hasWebcam ? '&filter=webcam' : ''}${
           hasMultipass ? '&filter=multipass' : ''
