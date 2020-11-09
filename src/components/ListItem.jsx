@@ -38,7 +38,7 @@ const ShaderListItem = ({ id }) => {
               <div>
                 <Link to={viewPath}>{name}</Link>
               </div>
-              <div>
+              <div className={styles.data}>
                 {data?.Shader ? (
                   <>
                     <EyeIcon className="icon" /> {views}{' '}
