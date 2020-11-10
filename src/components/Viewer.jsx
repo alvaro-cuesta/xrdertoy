@@ -9,18 +9,29 @@ import {
 import styles from './Viewer.module.scss'
 import { getFlags } from '../shadertoy/flags'
 import ViewerButton from './ViewerButton'
+import { Helmet } from 'react-helmet'
 
 const Viewer = () => {
   const { id } = useParams()
   const { isLoading, isError, error, data, refetch } = useQueryShader(id)
 
   if (isLoading) {
-    return `Loading shader ${id}`
+    return (
+      <div>
+        <Helmet>
+          <title>{id} - XRderToy Viewer</title>
+        </Helmet>
+        Loading shader {id}
+      </div>
+    )
   }
 
   if (isError || data.Error) {
     return (
       <div>
+        <Helmet>
+          <title>{id} - XRderToy Viewer</title>
+        </Helmet>
         Error loading shader {id}: {error?.message || data?.Error}{' '}
         <button onClick={refetch}>Retry</button>
       </div>
@@ -49,6 +60,12 @@ const Viewer = () => {
 
   return (
     <div className={styles.Viewer}>
+      <Helmet>
+        <title>
+          {info.name} by {info.username} - XRderToy Viewer
+        </title>
+      </Helmet>
+
       <div className={styles.main}>
         <header className={styles.header}>
           <h2>

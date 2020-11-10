@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "XRderToy Viewer",
+  "name": "View ShaderToy effects in VR",
   "icons": [
     {
       "src": "favicon.ico",

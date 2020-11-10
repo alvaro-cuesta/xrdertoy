@@ -10,6 +10,7 @@ import {
 import { useQueryShaderList } from '../hooks/useQueryShaderList'
 import BrowserItem from './BrowserItem'
 import styles from './Browser.module.scss'
+import { Helmet } from 'react-helmet'
 
 const Browser = () => {
   // Query params
@@ -141,6 +142,10 @@ const Browser = () => {
 
   return (
     <div className={styles.Browser}>
+      <Helmet>
+        <title>Browser - XRderToy Viewer</title>
+      </Helmet>
+
       <div className={styles.filters}>
         <div className={styles.text}>
           <input
