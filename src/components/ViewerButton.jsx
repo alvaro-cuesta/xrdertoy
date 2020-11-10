@@ -1,5 +1,5 @@
 import Preview from './Preview'
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { createDrawScene } from '../gl/scene'
 import { useXRSession } from '../hooks/useXRSession'
 import styles from './ViewerButton.module.scss'
@@ -18,6 +18,26 @@ const ViewerButton = ({ id, shader }) => {
     start,
     stop,
   } = useXRSession(myCreateDrawScene)
+
+  const handleClick = useCallback(
+    (e) => {
+      const fn =
+        !isAvailable || !isSupported
+          ? undefined
+          : isStarting
+          ? undefined
+          : !isRunning
+          ? start
+          : stop
+
+      if (fn) {
+        fn()
+      }
+
+      e.preventDefault()
+    },
+    [isAvailable, isSupported, isStarting, isRunning, start, stop],
+  )
 
   return (
     <Preview
@@ -41,15 +61,7 @@ const ViewerButton = ({ id, shader }) => {
           ? Preview.ACTIONS.PLAY
           : Preview.ACTIONS.STOP
       }
-      onClick={
-        !isAvailable || !isSupported
-          ? undefined
-          : isStarting
-          ? undefined
-          : !isRunning
-          ? start
-          : stop
-      }
+      onClick={handleClick}
     />
   )
 }
