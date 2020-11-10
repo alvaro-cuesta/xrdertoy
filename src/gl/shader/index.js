@@ -18,15 +18,26 @@ export const initShaderProgram = (gl, shaderSource) => {
   const uInvViewMatrix = gl.getUniformLocation(program, 'uInvViewMatrix')
   const uInvProjMatrix = gl.getUniformLocation(program, 'uInvProjMatrix')
 
-  const iTime = gl.getUniformLocation(program, 'iTime')
+  // ShaderToy inputs
   const iResolution = gl.getUniformLocation(program, 'iResolution')
+  const iTime = gl.getUniformLocation(program, 'iTime')
+  const iDate = gl.getUniformLocation(program, 'iDate')
+  const iFrame = gl.getUniformLocation(program, 'iFrame')
+  const iTimeDelta = gl.getUniformLocation(program, 'iTimeDelta')
+  const iFrameRate = gl.getUniformLocation(program, 'iFrameRate')
 
   return {
     program,
     aVertexPosition,
     uInvViewMatrix,
     uInvProjMatrix,
-    iTime,
+
+    // ShaderToy inputs
     iResolution,
+    iTime,
+    iDate,
+    iFrame,
+    iTimeDelta,
+    iFrameRate,
   }
 }

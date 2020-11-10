@@ -2,6 +2,8 @@ import { initShaderProgram } from './shader'
 import { initQuad } from './quad'
 import { mat4 } from 'gl-matrix'
 
+const FPS_RATE = 500
+
 export const createDrawScene = (renderpass) => (gl) => {
   if (renderpass.length > 1) {
     throw new Error('Multipass not supported')
@@ -14,16 +16,18 @@ export const createDrawScene = (renderpass) => (gl) => {
   const shaderProgram = initShaderProgram(gl, renderpass[0].code)
   const quad = initQuad(gl)
 
-  let i = 0
+  let iFrame = 0
 
-  const start = +new Date() / 1000
+  const start = performance.now()
+  let lastFrameTime = start
+  let lastFPSTime = -Infinity
+  let fpsFrames = 0
+  let iFrameRate = 0
 
   return (time, frame, refSpace) => {
-    if (i === 0) {
+    if (iFrame % 60 === 0) {
       console.log(time, frame, refSpace)
     }
-
-    i++
 
     const session = frame.session
 
@@ -35,6 +39,27 @@ export const createDrawScene = (renderpass) => (gl) => {
 
     if (!pose) {
       return
+    }
+
+    const date = new Date()
+    const now = performance.now()
+
+    const iTime = (now - start) / 1000
+    const iDate = [
+      date.getFullYear(), // the year (four digits)
+      date.getMonth(), // the month (from 0-11)
+      date.getDate(), // the day of the month (from 1-31)
+      date.getHours() * 60 * 60 + date.getMinutes() * 60 + date.getSeconds(),
+    ]
+    const iTimeDelta = (now - lastFrameTime) / 1000
+
+    lastFrameTime = now
+
+    const fpsDelta = now - lastFPSTime
+    if (fpsDelta >= FPS_RATE) {
+      iFrameRate = (fpsFrames / FPS_RATE) * 1000
+      lastFPSTime = now
+      fpsFrames = 0
     }
 
     for (let view of pose.views) {
@@ -53,6 +78,7 @@ export const createDrawScene = (renderpass) => (gl) => {
       gl.uniformMatrix4fv(shaderProgram.uInvViewMatrix, false, invViewMatrix)
       gl.uniformMatrix4fv(shaderProgram.uInvProjMatrix, false, invProjMatrix)
 
+      // ShaderToy inputs
       gl.uniform3f(
         shaderProgram.iResolution,
         viewport.width,
@@ -62,9 +88,16 @@ export const createDrawScene = (renderpass) => (gl) => {
         // Always 1 on ShaderToy source
         1,
       )
-      gl.uniform1f(shaderProgram.iTime, +new Date() / 1000 - start)
+      gl.uniform1f(shaderProgram.iTime, iTime)
+      gl.uniform4fv(shaderProgram.iDate, iDate)
+      gl.uniform1i(shaderProgram.iFrame, iFrame)
+      gl.uniform1f(shaderProgram.iTimeDelta, iTimeDelta)
+      gl.uniform1f(shaderProgram.iFrameRate, iFrameRate)
 
       quad.draw()
     }
+
+    iFrame++
+    fpsFrames++
   }
 }
