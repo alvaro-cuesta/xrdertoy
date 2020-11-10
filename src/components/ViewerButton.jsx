@@ -1,5 +1,5 @@
 import Preview from './Preview'
-import { useCallback, useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { createDrawScene } from '../gl/scene'
 import { useXRSession } from '../hooks/useXRSession'
 import styles from './ViewerButton.module.scss'
@@ -38,6 +38,20 @@ const ViewerButton = ({ id, shader }) => {
     },
     [isAvailable, isSupported, isStarting, isRunning, start, stop],
   )
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        stop()
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [stop])
 
   return (
     <Preview
