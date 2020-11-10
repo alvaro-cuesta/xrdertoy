@@ -1,7 +1,7 @@
 .Viewer {
   display: grid;
-  grid-template-columns: 1fr minmax(0%, 1fr);
-  grid-template-rows: auto auto;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: auto 1fr;
   grid-template-areas:
     'main side'
     'info side';
@@ -11,10 +11,12 @@
 
 .main {
   grid-area: main;
+  max-width: 100%;
 }
 
 .info {
   grid-area: info;
+  max-width: 100%;
 }
 
 .side {
