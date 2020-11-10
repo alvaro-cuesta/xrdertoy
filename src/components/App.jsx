@@ -10,6 +10,7 @@ import {
 } from '../paths'
 import Browser from './Browser'
 import Viewer from './Viewer'
+import Error404 from './Error404'
 import styles from './App.module.scss'
 
 const queryCache = new QueryCache()
@@ -32,8 +33,17 @@ const App = () => (
 
             <main className={styles.main}>
               <Switch>
-                <Route exact path={ROOT_PATH} component={Browser} />
-                <Route exact path={VIEW_PATH} component={Viewer} />
+                <Route exact path={ROOT_PATH}>
+                  <Browser />
+                </Route>
+
+                <Route exact path={VIEW_PATH}>
+                  <Viewer />
+                </Route>
+
+                <Route>
+                  <Error404 />
+                </Route>
               </Switch>
             </main>
 
