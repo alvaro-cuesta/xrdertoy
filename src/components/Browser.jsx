@@ -119,10 +119,10 @@ const Browser = () => {
   const maxPage = Math.ceil(totalShaders / Browser.RESULTS_PER_PAGE) || 1
 
   useEffect(() => {
-    if (page > maxPage) {
-      setPage(maxPage)
+    if (data && page > maxPage) {
+      setPage(maxPage, 'replaceIn')
     }
-  }, [page, maxPage, setPage])
+  }, [data, page, maxPage, setPage])
 
   const handleFirstPage = useCallback(() => {
     setPage(1)
