@@ -1,7 +1,7 @@
 import { QueryCache, ReactQueryCacheProvider } from 'react-query'
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import { QueryParamProvider } from 'use-query-params'
-import { HelmetProvider } from 'react-helmet-async'
+import { HelmetProvider, Helmet } from 'react-helmet-async'
 import {
   ALVARO_ROOT_PATH,
   ROOT_PATH,
@@ -16,6 +16,10 @@ const queryCache = new QueryCache()
 
 const App = () => (
   <HelmetProvider>
+    <Helmet>
+      <title>XRderToy Viewer</title>
+    </Helmet>
+
     <Router>
       <QueryParamProvider ReactRouterRoute={Route}>
         <ReactQueryCacheProvider queryCache={queryCache}>
