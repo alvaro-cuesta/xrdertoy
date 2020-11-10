@@ -1,12 +1,17 @@
-const source = `precision highp float;
-
-attribute vec2 aVertexPosition;
+const source = `#version 300 es
+#ifdef GL_ES
+precision highp float;
+precision highp int;
+precision mediump sampler3D;
+#endif
 
 uniform mat4 uInvViewMatrix;
 uniform mat4 uInvProjMatrix;
 
-varying vec3 vZNearPos;
-varying vec3 vRayOrig;
+in vec2 aVertexPosition;
+
+out vec3 vZNearPos;
+out vec3 vRayOrig;
 
 void main() {
   // Vertices in the near plane in NDC

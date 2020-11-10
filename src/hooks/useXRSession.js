@@ -47,7 +47,7 @@ export const useXRSession = (createDrawScene) => {
       xrSession.current.addEventListener('end', onXRSessionEnded)
 
       const canvas = document.createElement('canvas')
-      const gl = canvas.getContext('webgl', { xrCompatible: true })
+      const gl = canvas.getContext('webgl2', { xrCompatible: true })
       const drawScene = createDrawScene(gl)
 
       xrSession.current.updateRenderState({

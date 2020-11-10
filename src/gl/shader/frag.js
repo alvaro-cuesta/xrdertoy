@@ -1,13 +1,12 @@
 const makeSource = ({ shaderSource, isLowEnd }) => {
-  return `
-#define HW_PERFORMANCE ${isLowEnd ? 1 : 0}
-
+  return `#version 300 es
+#ifdef GL_ES
 precision highp float;
+precision highp int;
+precision mediump sampler3D;
+#endif
 
-varying vec3 vZNearPos;
-varying vec3 vRayOrig;
-
-uniform mat4 uInvViewMatrix;
+#define HW_PERFORMANCE ${isLowEnd ? 1 : 0}
 
 uniform vec3 iResolution;
 uniform float iTime;
@@ -21,12 +20,17 @@ uniform float iTimeDelta;
 uniform float iFrameRate;
 // uniform samplerXX iChannel0..3; // input channel. XX = 2D/Cube
 
+in vec3 vZNearPos;
+in vec3 vRayOrig;
+
+out vec4 fragColor;
+
 ${shaderSource}
 
 void main() {
   vec3 rayDir = normalize(vZNearPos - vRayOrig);
 
-  mainVR(gl_FragColor, gl_FragCoord.xy * gl_FragCoord.w, vRayOrig, rayDir);
+  mainVR(fragColor, gl_FragCoord.xy * gl_FragCoord.w, vRayOrig, rayDir);
 }
 `
 }
