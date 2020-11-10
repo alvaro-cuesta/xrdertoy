@@ -12,7 +12,7 @@ uniform mat4 uInvViewMatrix;
 uniform vec3 iResolution;
 uniform float iTime;
 // uniform float iChannelTime[4]; // channel playback time (in seconds)
-// uniform vec4 iMouse; // mouse pixel coords. xy: current (if MLB down), zw: click
+uniform vec4 iMouse;
 uniform vec4 iDate;
 // uniform float iSampleRate; // sound sample rate (i.e., 44100)
 // uniform vec3 iChannelResolution[4]; // channel resolution (in pixels)

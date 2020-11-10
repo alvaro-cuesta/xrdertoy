@@ -89,6 +89,7 @@ export const createDrawScene = (renderpass) => (gl) => {
         1,
       )
       gl.uniform1f(shaderProgram.iTime, iTime)
+      gl.uniform4f(shaderProgram.iMouse, 0, 0, 0, 0)
       gl.uniform4fv(shaderProgram.iDate, iDate)
       gl.uniform1i(shaderProgram.iFrame, iFrame)
       gl.uniform1f(shaderProgram.iTimeDelta, iTimeDelta)

@@ -21,6 +21,7 @@ export const initShaderProgram = (gl, shaderSource) => {
   // ShaderToy inputs
   const iResolution = gl.getUniformLocation(program, 'iResolution')
   const iTime = gl.getUniformLocation(program, 'iTime')
+  const iMouse = gl.getUniformLocation(program, 'iMouse')
   const iDate = gl.getUniformLocation(program, 'iDate')
   const iFrame = gl.getUniformLocation(program, 'iFrame')
   const iTimeDelta = gl.getUniformLocation(program, 'iTimeDelta')
@@ -35,6 +36,7 @@ export const initShaderProgram = (gl, shaderSource) => {
     // ShaderToy inputs
     iResolution,
     iTime,
+    iMouse,
     iDate,
     iFrame,
     iTimeDelta,
