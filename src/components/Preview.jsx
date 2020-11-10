@@ -9,6 +9,7 @@ import { ReactComponent as Spinner } from '../icons/spinner.svg'
 import { ReactComponent as PlayIcon } from '../icons/play.svg'
 import { ReactComponent as StopIcon } from '../icons/stop.svg'
 import { ReactComponent as ExclamationIcon } from '../icons/exclamation.svg'
+import { useCallback, useState } from 'react'
 
 const Preview = ({
   id,
@@ -20,8 +21,17 @@ const Preview = ({
   onClick,
   className,
 }) => {
+  const [isImageError, setIsImageError] = useState(false)
   const viewPath = generatePath(VIEW_PATH, { id })
   const shaderToyPreviewPath = generatePath(SHADERTOY_PREVIEW_PATH, { id })
+
+  const handleImageSuccess = useCallback(() => {
+    setIsImageError(false)
+  }, [])
+
+  const handleImageError = useCallback(() => {
+    setIsImageError(true)
+  }, [])
 
   return (
     <div
@@ -32,7 +42,13 @@ const Preview = ({
       )}
     >
       <Link to={viewPath} onClick={onClick}>
-        <img className={styles.image} src={shaderToyPreviewPath} alt={''} />
+        <img
+          className={cx(styles.image, { [styles.isImageError]: isImageError })}
+          src={shaderToyPreviewPath}
+          alt={''}
+          onLoad={handleImageSuccess}
+          onError={handleImageError}
+        />
       </Link>
 
       <div className={styles.action}>

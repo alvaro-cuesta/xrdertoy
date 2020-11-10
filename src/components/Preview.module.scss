@@ -9,6 +9,7 @@
   transform: perspective(400px) translateZ(1px);
   -webkit-font-smoothing: antialised;
   -webkit-font-smoothing: subpixel-antialiased;
+  background-color: #222;
 }
 
 .Preview:hover {
@@ -19,6 +20,11 @@
 .image {
   display: block;
   width: 100%;
+  height: 100%;
+}
+
+.isImageError {
+  opacity: 0;
 }
 
 .overlay {
