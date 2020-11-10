@@ -10,7 +10,7 @@ import {
 import { useQueryShaderList } from '../hooks/useQueryShaderList'
 import BrowserItem from './BrowserItem'
 import styles from './Browser.module.scss'
-import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet-async'
 
 const Browser = () => {
   // Query params

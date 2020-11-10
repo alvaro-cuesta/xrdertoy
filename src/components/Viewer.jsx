@@ -9,7 +9,7 @@ import {
 import styles from './Viewer.module.scss'
 import { getFlags } from '../shadertoy/flags'
 import ViewerButton from './ViewerButton'
-import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet-async'
 
 const Viewer = () => {
   const { id } = useParams()
