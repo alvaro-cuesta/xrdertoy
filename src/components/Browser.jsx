@@ -11,8 +11,11 @@ import { useQueryShaderList } from '../hooks/useQueryShaderList'
 import BrowserItem from './BrowserItem'
 import styles from './Browser.module.scss'
 import { Helmet } from 'react-helmet-async'
+import useScrollToTopOnMount from '../hooks/useScrollToTopOnMount'
 
 const Browser = () => {
+  useScrollToTopOnMount()
+
   // Query params
   const [text, setText] = useQueryParam('text', withDefault(StringParam, ''))
   const [page, setPage] = useQueryParam('page', withDefault(NumberParam, 1))

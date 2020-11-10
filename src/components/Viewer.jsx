@@ -10,8 +10,11 @@ import styles from './Viewer.module.scss'
 import { getFlags } from '../shadertoy/flags'
 import ViewerButton from './ViewerButton'
 import { Helmet } from 'react-helmet-async'
+import useScrollToTopOnMount from '../hooks/useScrollToTopOnMount'
 
 const Viewer = () => {
+  useScrollToTopOnMount()
+
   const { id } = useParams()
   const { isLoading, isError, error, data, refetch } = useQueryShader(id)
 
