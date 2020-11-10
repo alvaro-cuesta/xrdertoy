@@ -1,5 +1,5 @@
 import Preview from './Preview'
-import { useCallback, useEffect, useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { createDrawScene } from '../gl/scene'
 import { useXRSession } from '../hooks/useXRSession'
 import styles from './ViewerButton.module.scss'
@@ -18,26 +18,6 @@ const ViewerButton = ({ id, shader }) => {
     start,
     stop,
   } = useXRSession(myCreateDrawScene)
-
-  const handleClick = useCallback(
-    (e) => {
-      const fn =
-        !isAvailable || !isSupported
-          ? undefined
-          : isStarting
-          ? undefined
-          : !isRunning
-          ? start
-          : stop
-
-      if (fn) {
-        fn()
-      }
-
-      e.preventDefault()
-    },
-    [isAvailable, isSupported, isStarting, isRunning, start, stop],
-  )
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -75,7 +55,15 @@ const ViewerButton = ({ id, shader }) => {
           ? Preview.ACTIONS.PLAY
           : Preview.ACTIONS.STOP
       }
-      onClick={handleClick}
+      onClick={
+        !isAvailable || !isSupported
+          ? undefined
+          : isStarting
+          ? undefined
+          : !isRunning
+          ? start
+          : stop
+      }
     />
   )
 }
