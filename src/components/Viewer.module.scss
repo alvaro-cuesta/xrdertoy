@@ -1,11 +1,10 @@
 .Viewer {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr minmax(0%, 1fr);
+  grid-template-rows: auto auto;
   grid-template-areas:
     'main side'
-    'info side'
-    '.... side';
+    'info side';
   column-gap: 1em;
   row-gap: 1em;
 }
@@ -21,10 +20,13 @@
 .side {
   grid-area: side;
 
-  & > *,
+  & details {
+    height: 100%;
+    overflow: scroll;
+  }
+
   & pre {
     max-width: 100%;
-    overflow: scroll;
   }
 }
 
