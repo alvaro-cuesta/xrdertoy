@@ -77,6 +77,12 @@ export const createDrawScene = (renderpass) => (gl) => {
 
       gl.uniformMatrix4fv(shaderProgram.uInvViewMatrix, false, invViewMatrix)
       gl.uniformMatrix4fv(shaderProgram.uInvProjMatrix, false, invProjMatrix)
+      gl.uniform4fv(shaderProgram.uViewport, [
+        viewport.x,
+        viewport.y,
+        viewport.width,
+        viewport.height,
+      ])
 
       // ShaderToy inputs
       gl.uniform3f(

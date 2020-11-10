@@ -17,6 +17,7 @@ export const initShaderProgram = (gl, shaderSource) => {
   const aVertexPosition = gl.getAttribLocation(program, 'aVertexPosition')
   const uInvViewMatrix = gl.getUniformLocation(program, 'uInvViewMatrix')
   const uInvProjMatrix = gl.getUniformLocation(program, 'uInvProjMatrix')
+  const uViewport = gl.getUniformLocation(program, 'uViewport')
 
   // ShaderToy inputs
   const iResolution = gl.getUniformLocation(program, 'iResolution')
@@ -32,6 +33,7 @@ export const initShaderProgram = (gl, shaderSource) => {
     aVertexPosition,
     uInvViewMatrix,
     uInvProjMatrix,
+    uViewport,
 
     // ShaderToy inputs
     iResolution,
