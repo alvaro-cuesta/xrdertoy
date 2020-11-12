@@ -1,4 +1,4 @@
-const makeSource = ({ shaderSource, isLowEnd }) => {
+const makeSource = ({ shaderSource, inputs, isLowEnd, isBuffer }) => {
   return `#version 300 es
 #ifdef GL_ES
 precision highp float;
@@ -12,15 +12,42 @@ uniform vec4 uViewport;
 
 uniform vec3 iResolution;
 uniform float iTime;
-// uniform float iChannelTime[4]; // channel playback time (in seconds)
+uniform float iChannelTime[4];
 uniform vec4 iMouse;
 uniform vec4 iDate;
-// uniform float iSampleRate; // sound sample rate (i.e., 44100)
-// uniform vec3 iChannelResolution[4]; // channel resolution (in pixels)
+uniform float iSampleRate;
+uniform vec3 iChannelResolution[4];
 uniform int iFrame;
 uniform float iTimeDelta;
 uniform float iFrameRate;
-// uniform samplerXX iChannel0..3; // input channel. XX = 2D/Cube
+
+${inputs
+  .map((input) => {
+    const samplerType =
+      input?.type === 'cubemap'
+        ? `samplerCube`
+        : input?.type === 'volume'
+        ? `sampler3D`
+        : input?.type === 'texture'
+        ? `sampler2D`
+        : null
+
+    if (samplerType === null) {
+      throw new Error(`Unknown input type ${input?.type}`)
+    }
+
+    const i = input?.channel
+
+    return `uniform ${samplerType} iChannel${i};
+
+uniform struct {
+  ${samplerType} sampler;
+  vec3 size;
+  float time;
+  int loaded;
+} iCh${i};`
+  })
+  .join('\n\n')}
 
 void mainImage(out vec4 c, in vec2 f);
 void mainVR(out vec4 c, in vec2 f, in vec3 ro, in vec3 rd);
@@ -62,7 +89,10 @@ void main() {
   vec2 fragCoord = gl_FragCoord.xy * gl_FragCoord.w;
   vec2 viewFragCoord = fragCoord - uViewport.xy;
 
-  mainVR(fragColor, viewFragCoord, vRayOrig, rayDir);
+  vec4 color = vec4(0.0, 0.0, 0.0, 1.0);
+  mainVR(color, viewFragCoord, vRayOrig, rayDir);
+  ${!isBuffer ? 'color.w = 1.0;' : ''}
+  fragColor = color;
 }
 `
 }

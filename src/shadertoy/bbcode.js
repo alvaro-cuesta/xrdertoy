@@ -1,4 +1,4 @@
-const toURL = (url) => new URL(url, 'https://www.shadertoy.com').toString()
+import { toShaderToyURL } from './misc'
 
 export function bbc2html(content, allowMultimedia) {
   //content = content.replace(new RegExp('\r?\n','g'), '<br />');
@@ -15,12 +15,16 @@ export function bbc2html(content, allowMultimedia) {
   content = content.replace(
     /(\[url=)(.*?)(\])(.*?)(\[\/url\])/gi,
     (_, __, g2, ___, g4) =>
-      `<a href="${toURL(g2)}" class="regular" target="_blank">${g4}</a>`,
+      `<a href="${toShaderToyURL(
+        g2,
+      )}" class="regular" target="_blank">${g4}</a>`,
   )
   content = content.replace(
     /(\[url\])(.*?)(\[\/url\])/gi,
     (_, __, g2) =>
-      `<a href="${toURL(g2)}" class="regular" target="_blank">${g2}</a>`,
+      `<a href="${toShaderToyURL(
+        g2,
+      )}" class="regular" target="_blank">${g2}</a>`,
   )
 
   // Emoticons
@@ -76,7 +80,7 @@ export function bbc2html(content, allowMultimedia) {
   // Multimedia
   if (allowMultimedia) {
     content = content.replace(/(\[img\])(.*?)(\[\/img\])/gi, (_, __, g2) => {
-      const url = toURL(g2)
+      const url = toShaderToyURL(g2)
       return `<a href="${url}"><img src="${url}" style="max-width:100%;"/></a>`
     })
     content = content.replace(

@@ -2,6 +2,7 @@ import { initShaderProgram } from './shader'
 import { initQuad } from './quad'
 import { mat4 } from 'gl-matrix'
 import { Mouse, Timing } from '../shadertoy/uniforms'
+import { create2DTextureFromInput } from './gl-util'
 
 const FPS_RATE = 500
 
@@ -10,11 +11,33 @@ export const createDrawScene = (renderpass, forceLowEnd) => (gl) => {
     throw new Error('Multipass not supported')
   }
 
-  if (renderpass[0].inputs.length > 0) {
-    throw new Error('Inputs not supported')
-  }
+  const inputs = renderpass[0].inputs.map((input, i) => {
+    if (input.ctype !== 'texture') {
+      throw new Error(`Unexpected ctype === ${input.ctype}`)
+    }
 
-  const shaderProgram = initShaderProgram(gl, renderpass[0].code, forceLowEnd)
+    if (input.channel < 0 || input.channel > 3) {
+      throw new Error(`Unexpected channel === ${input.channel}`)
+    }
+
+    const usedChannels = renderpass[0].inputs
+      .slice(0, i)
+      .map((input) => input.channel)
+
+    if (usedChannels.includes(input.channel)) {
+      throw new Error(`Repeated channel ${input.channel} in input ${i}`)
+    }
+
+    return {
+      ...input,
+      type: 'texture',
+      texture: create2DTextureFromInput(gl, input),
+    }
+  })
+
+  const code = renderpass[0].code
+
+  const shaderProgram = initShaderProgram(gl, inputs, code, forceLowEnd)
   const quad = initQuad(gl)
 
   const timing = new Timing(FPS_RATE)
@@ -73,6 +96,43 @@ export const createDrawScene = (renderpass, forceLowEnd) => (gl) => {
         gl.uniform1i(shaderProgram.iFrame, timing.iFrame)
         gl.uniform1f(shaderProgram.iTimeDelta, timing.iTimeDelta)
         gl.uniform1f(shaderProgram.iFrameRate, timing.iFrameRate)
+
+        const iChannelTime = [0, 0, 0, 0]
+        // prettier-ignore
+        const iChannelResolution = [
+          0, 0, 0,
+          0, 0, 0,
+          0, 0, 0,
+          0, 0, 0,
+        ]
+
+        for (const input of inputs) {
+          const i = input.channel
+
+          const loaded = input.texture.loaded
+          const width = input.texture.width
+          const height = input.texture.height
+          const depth = 0
+          const channelTime = 0
+
+          gl.activeTexture(gl[`TEXTURE${i}`])
+          gl.bindTexture(gl.TEXTURE_2D, inputs[i].texture.id)
+          gl.uniform1i(shaderProgram.iChannel[i], i)
+          gl.uniform1i(shaderProgram.iCh[i].sampler, i)
+          gl.uniform3f(shaderProgram.iCh[i].size, width, height, depth)
+          gl.uniform1f(shaderProgram.iCh[i].time, channelTime)
+          gl.uniform1i(shaderProgram.iCh[i].loaded, loaded ? 1 : 0)
+
+          if (loaded) {
+            iChannelTime[i] = channelTime
+            iChannelResolution[3 * i + 0] = width
+            iChannelResolution[3 * i + 1] = height
+            iChannelResolution[3 * i + 2] = depth
+          }
+        }
+
+        gl.uniform1fv(shaderProgram.iChannelTime, iChannelTime)
+        gl.uniform3fv(shaderProgram.iChannelResolution, iChannelResolution)
 
         quad.draw()
       }

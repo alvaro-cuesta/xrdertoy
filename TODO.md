@@ -30,6 +30,7 @@
 - `Viewer` image error + pretty
 - `Viewer` XR/GL error + pretty
 - Error boundary for nice internal errors + pretty
+- Error/warn when failing on inputs
 - Report issue links
   - Footer (link to generic error template)
   - On `Browser` download error ("if this issue persists" link to download error
@@ -43,12 +44,8 @@
 
 ### Input uniforms
 
-- `iChannelTime[4]`
 - Make `iMouse` react (maybe from controller?)
 - `iSampleRate`
-- `iChannelResolution[4]`
-- `iChannel[0-4]`
-- `iCh[0-4]`
 - Custom VR uniforms? (e.g. for controllers)
   - Maybe with some `#define`
 
@@ -62,13 +59,82 @@
 ### Input channels
 
 - Keyboard
+  - iChannelX
+  - iChannelResolution[x]
+  - iChannelTime[x]
+  - iChX.sampler
+  - iChX.size
+  - iChX.time
+  - iChX.loaded
 - Webcam
+  - iChannelX
+  - iChannelResolution[x]
+  - iChannelTime[x]
+  - iChX.sampler
+  - iChX.size
+  - iChX.time
+  - iChX.loaded
 - Microphone
+  - iChannelX
+  - iChannelResolution[x]
+  - iChannelTime[x]
+  - iChX.sampler
+  - iChX.size
+  - iChX.time
+  - iChX.loaded
 - SoundCloud
+  - iChannelX
+  - iChannelResolution[x]
+  - iChannelTime[x]
+  - iChX.sampler
+  - iChX.size
+  - iChX.time
+  - iChX.loaded
 - Buffer [A-D]
+  - iChannelX
+  - iChannelResolution[x]
+  - iChannelTime[x]
+  - iChX.sampler
+  - iChX.size
+  - iChX.time
+  - iChX.loaded
 - Cubemap A
-- Textures
+  - iChannelX
+  - iChannelResolution[x]
+  - iChannelTime[x]
+  - iChX.sampler
+  - iChX.size
+  - iChX.time
+  - iChX.loaded
 - Cubemaps
+  - iChannelX
+  - iChannelResolution[x]
+  - iChannelTime[x]
+  - iChX.sampler
+  - iChX.size
+  - iChX.time
+  - iChX.loaded
 - Volumes
+  - iChannelX
+  - iChannelResolution[x]
+  - iChannelTime[x]
+  - iChX.sampler
+  - iChX.size
+  - iChX.time
+  - iChX.loaded
 - Videos
+  - iChannelX
+  - iChannelResolution[x]
+  - iChannelTime[x]
+  - iChX.sampler
+  - iChX.size
+  - iChX.time
+  - iChX.loaded
 - Music
+  - iChannelX
+  - iChannelResolution[x]
+  - iChannelTime[x]
+  - iChX.sampler
+  - iChX.size
+  - iChX.time
+  - iChX.loaded
