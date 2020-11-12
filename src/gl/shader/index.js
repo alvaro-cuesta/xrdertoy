@@ -3,14 +3,14 @@ import makeFragSource from './frag'
 import { compileShader, linkProgram } from '../gl-util'
 import { getIsLowEnd } from '../../shadertoy/misc'
 
-export const initShaderProgram = (gl, shaderSource) => {
+export const initShaderProgram = (gl, shaderSource, forceLowEnd) => {
   const vert = compileShader(gl, gl.VERTEX_SHADER, vertSource)
   const frag = compileShader(
     gl,
     gl.FRAGMENT_SHADER,
     makeFragSource({
       shaderSource,
-      isLowEnd: getIsLowEnd(),
+      isLowEnd: forceLowEnd || getIsLowEnd(),
     }),
   )
   const program = linkProgram(gl, [vert, frag])

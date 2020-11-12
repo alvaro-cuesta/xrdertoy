@@ -1,13 +1,17 @@
-import Preview from './Preview'
 import { useEffect, useMemo } from 'react'
+import PropTypes from 'prop-types'
+import Preview from './Preview'
 import { createDrawScene } from '../gl/scene'
 import { useXRSession } from '../hooks/useXRSession'
 import styles from './ViewerButton.module.scss'
 
-const ViewerButton = ({ id, shader }) => {
+const ViewerButton = ({ id, shader, forceLowEnd }) => {
   const myCreateDrawScene = useMemo(
-    () => (shader.renderpass ? createDrawScene(shader.renderpass) : null),
-    [shader.renderpass],
+    () =>
+      shader.renderpass
+        ? createDrawScene(shader.renderpass, forceLowEnd)
+        : null,
+    [shader.renderpass, forceLowEnd],
   )
 
   const {
@@ -66,6 +70,16 @@ const ViewerButton = ({ id, shader }) => {
       }
     />
   )
+}
+
+ViewerButton.defaultProps = {
+  forceLowEnd: false,
+}
+
+ViewerButton.propTypes = {
+  id: PropTypes.string.isRequired,
+  shader: PropTypes.object.isRequired,
+  forceLowEnd: PropTypes.bool,
 }
 
 export default ViewerButton

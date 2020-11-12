@@ -1,4 +1,6 @@
+import { useCallback, useState } from 'react'
 import { generatePath, Link, useParams } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { useQueryShader } from '../hooks/useQueryShader'
 import {
   BROWSER_PATH,
@@ -9,7 +11,6 @@ import {
 import styles from './Viewer.module.scss'
 import { getFlags } from '../shadertoy/flags'
 import ViewerButton from './ViewerButton'
-import { Helmet } from 'react-helmet-async'
 import useScrollToTopOnMount from '../hooks/useScrollToTopOnMount'
 import BBCode from './BBCode'
 
@@ -18,6 +19,11 @@ const Viewer = () => {
 
   const { id } = useParams()
   const { isLoading, isError, error, data, refetch } = useQueryShader(id)
+  const [forceLowEnd, setForceLowEnd] = useState(false)
+
+  const handleCheckForceLowEnd = useCallback((e) => {
+    setForceLowEnd(!!e.target.checked)
+  }, [])
 
   if (isLoading) {
     return (
@@ -83,7 +89,16 @@ const Viewer = () => {
           </h2>
         </header>
 
-        <ViewerButton id={id} shader={data?.Shader} />
+        <ViewerButton id={id} shader={data?.Shader} forceLowEnd={forceLowEnd} />
+
+        <label>
+          <input
+            type="checkbox"
+            checked={forceLowEnd}
+            onChange={handleCheckForceLowEnd}
+          />{' '}
+          Force performance mode
+        </label>
       </div>
 
       <div className={styles.info}>

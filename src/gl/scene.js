@@ -5,7 +5,7 @@ import { Mouse, Timing } from '../shadertoy/uniforms'
 
 const FPS_RATE = 500
 
-export const createDrawScene = (renderpass) => (gl) => {
+export const createDrawScene = (renderpass, forceLowEnd) => (gl) => {
   if (renderpass.length > 1) {
     throw new Error('Multipass not supported')
   }
@@ -14,7 +14,7 @@ export const createDrawScene = (renderpass) => (gl) => {
     throw new Error('Inputs not supported')
   }
 
-  const shaderProgram = initShaderProgram(gl, renderpass[0].code)
+  const shaderProgram = initShaderProgram(gl, renderpass[0].code, forceLowEnd)
   const quad = initQuad(gl)
 
   const timing = new Timing(FPS_RATE)
