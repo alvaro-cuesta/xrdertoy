@@ -16,7 +16,7 @@
 - Better "loading" state
 - Maybe allow editing code (for shaders with defines for e.g. quality)
 - Quality selector (intermediate render buffer?)
-- `isLowEnd`
+- Allow forcing `isLowEnd`
 
 ## Error handling
 

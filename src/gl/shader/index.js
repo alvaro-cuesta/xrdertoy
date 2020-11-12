@@ -1,6 +1,7 @@
-import vertSource from './vert.js'
-import makeFragSource from './frag.js'
+import vertSource from './vert'
+import makeFragSource from './frag'
 import { compileShader, linkProgram } from '../gl-util'
+import { getIsLowEnd } from '../../shadertoy/misc'
 
 export const initShaderProgram = (gl, shaderSource) => {
   const vert = compileShader(gl, gl.VERTEX_SHADER, vertSource)
@@ -9,7 +10,7 @@ export const initShaderProgram = (gl, shaderSource) => {
     gl.FRAGMENT_SHADER,
     makeFragSource({
       shaderSource,
-      isLowEnd: false,
+      isLowEnd: getIsLowEnd(),
     }),
   )
   const program = linkProgram(gl, [vert, frag])
