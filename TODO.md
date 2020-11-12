@@ -16,7 +16,6 @@
 - Better "loading" state
 - Maybe allow editing code (for shaders with defines for e.g. quality)
 - Quality selector (intermediate render buffer?)
-- Parse PHPBB in desciption
 - `isLowEnd`
 
 ## Error handling

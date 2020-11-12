@@ -11,6 +11,7 @@ import { getFlags } from '../shadertoy/flags'
 import ViewerButton from './ViewerButton'
 import { Helmet } from 'react-helmet-async'
 import useScrollToTopOnMount from '../hooks/useScrollToTopOnMount'
+import BBCode from './BBCode'
 
 const Viewer = () => {
   useScrollToTopOnMount()
@@ -147,10 +148,7 @@ const Viewer = () => {
             </ul>
           </li>
           <li>
-            Description:{' '}
-            {info.description.split(/\n+/).map((text, i) => (
-              <p key={i}>{text}</p>
-            ))}
+            Description: <BBCode string={info.description} />
           </li>
         </ul>
       </div>
