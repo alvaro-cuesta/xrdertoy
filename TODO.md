@@ -5,6 +5,7 @@
 - What is `published` in `Shader.info`?
 - What is `hasliked` in `Shader.info`?
 - Footer
+- Remove ShaderToy media on `/public/media/` when (if) they enable CORS
 
 ## `Browser` features
 
