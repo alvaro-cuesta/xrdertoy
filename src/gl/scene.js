@@ -124,38 +124,27 @@ export const createDrawScene = (renderpass, forceLowEnd) => (gl) => {
           const i = input.channel
 
           const loaded = input.texture.loaded
-          const width = input.texture.width
-          const height = input.texture.height
-          const depth = 0
-          const channelTime = 0
+          const resolution = input.texture.resolution
+          const time = input.texture.time
 
           gl.activeTexture(gl[`TEXTURE${i}`])
-          gl.bindTexture(
-            input.ctype === 'texture'
-              ? gl.TEXTURE_2D
-              : input.ctype === 'video'
-              ? gl.TEXTURE_2D
-              : input.ctype === 'cubemap'
-              ? gl.TEXTURE_CUBE_MAP
-              : null,
-            input.texture.id,
-          )
+          gl.bindTexture(input.texture.target, input.texture.id)
           gl.uniform1i(shaderProgram.iChannel[i], i)
           gl.uniform1i(shaderProgram.iCh[i].sampler, i)
-          gl.uniform3f(shaderProgram.iCh[i].size, width, height, depth)
-          gl.uniform1f(shaderProgram.iCh[i].time, channelTime)
+          gl.uniform3fv(shaderProgram.iCh[i].size, resolution)
+          gl.uniform1f(shaderProgram.iCh[i].time, time)
           gl.uniform1i(shaderProgram.iCh[i].loaded, loaded ? 1 : 0)
 
           if (loaded) {
-            iChannelTime[i] = channelTime
-            iChannelResolution[3 * i + 0] = width
-            iChannelResolution[3 * i + 1] = height
-            iChannelResolution[3 * i + 2] = depth
+            iChannelResolution[3 * i + 0] = resolution[0]
+            iChannelResolution[3 * i + 1] = resolution[1]
+            iChannelResolution[3 * i + 2] = resolution[2]
+            iChannelTime[i] = time
           }
         }
 
-        gl.uniform1fv(shaderProgram.iChannelTime, iChannelTime)
         gl.uniform3fv(shaderProgram.iChannelResolution, iChannelResolution)
+        gl.uniform1fv(shaderProgram.iChannelTime, iChannelTime)
 
         quad.draw()
       }

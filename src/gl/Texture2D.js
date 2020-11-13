@@ -1,7 +1,8 @@
 export default class Texture2D {
   samplerType = 'sampler2D'
-  width = 0
-  height = 0
+  target = WebGL2RenderingContext.TEXTURE_2D
+  resolution = [0, 0, 0]
+  time = 0
   loaded = false
 
   constructor(gl, { sampler: { filter, wrap, vflip, srgb, internal } }) {

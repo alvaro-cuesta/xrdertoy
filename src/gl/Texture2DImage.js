@@ -9,8 +9,7 @@ export default class Texture2DImage extends Texture2D {
 
     this.image.onload = () => {
       this.initFrom(this.image)
-      this.width = this.image.width
-      this.height = this.image.height
+      this.resolution = [this.image.width, this.image.height]
       this.loaded = true
     }
 

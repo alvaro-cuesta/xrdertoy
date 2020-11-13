@@ -20,8 +20,9 @@ const IMAGE_NUMBER_TO_ID = {
 
 export default class TextureCube {
   samplerType = 'samplerCube'
-  width = 0
-  height = 0
+  target = WebGL2RenderingContext.TEXTURE_CUBE_MAP
+  resolution = [0, 0, 0]
+  time = 0
   loaded = false
 
   constructor(gl, { src, sampler: { filter, wrap, vflip, srgb, internal } }) {
@@ -103,8 +104,11 @@ export default class TextureCube {
 
           const images = Object.values(this.images)
 
-          this.width = Math.max(...images.map((img) => img.width))
-          this.height = Math.max(...images.map((img) => img.height))
+          this.resolution = [
+            Math.max(...images.map((img) => img.width)),
+            Math.max(...images.map((img) => img.height)),
+            0,
+          ]
           this.loaded = true
         }
       }

@@ -43,8 +43,8 @@ export default class Texture2DVideo extends Texture2D {
     const checkReady = () => {
       if (playing && timeupdate) {
         this.initFrom(this.video)
-        this.width = this.video.videoWidth
-        this.height = this.video.videoHeight
+        this.resolution = [this.image.videoWidth, this.image.videoHeight]
+
         this.loaded = true
       }
     }
