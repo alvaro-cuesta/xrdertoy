@@ -2,7 +2,8 @@ import { initShaderProgram } from './shader'
 import { initQuad } from './quad'
 import { mat4 } from 'gl-matrix'
 import { Mouse, Timing } from '../shadertoy/uniforms'
-import { create2DTextureFromInput, createCubeTextureFromInput } from './gl-util'
+import TextureCube from './TextureCube'
+import Texture2D from './Texture2D'
 
 const FPS_RATE = 500
 
@@ -38,9 +39,9 @@ export const createDrawScene = (renderpass, forceLowEnd) => (gl) => {
           : null,
       texture:
         input.ctype === 'texture'
-          ? create2DTextureFromInput(gl, input)
+          ? new Texture2D(gl, input)
           : input.ctype === 'cubemap'
-          ? createCubeTextureFromInput(gl, input)
+          ? new TextureCube(gl, input)
           : null,
     }
   })
