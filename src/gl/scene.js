@@ -3,7 +3,8 @@ import { initQuad } from './quad'
 import { mat4 } from 'gl-matrix'
 import { Mouse, Timing } from '../shadertoy/uniforms'
 import TextureCube from './TextureCube'
-import Texture2D from './Texture2D'
+import Texture2DImage from './Texture2DImage'
+import Texture2DVideo from './Texture2DVideo'
 
 const FPS_RATE = 500
 
@@ -13,7 +14,11 @@ export const createDrawScene = (renderpass, forceLowEnd) => (gl) => {
   }
 
   const inputs = renderpass[0].inputs.map((input, i) => {
-    if (input.ctype !== 'texture' && input.ctype !== 'cubemap') {
+    if (
+      input.ctype !== 'texture' &&
+      input.ctype !== 'video' &&
+      input.ctype !== 'cubemap'
+    ) {
       throw new Error(`Unexpected ctype === ${input.ctype}`)
     }
 
@@ -31,15 +36,11 @@ export const createDrawScene = (renderpass, forceLowEnd) => (gl) => {
 
     return {
       ...input,
-      type:
-        input.ctype === 'texture'
-          ? 'texture'
-          : input.ctype === 'cubemap'
-          ? 'cubemap'
-          : null,
       texture:
         input.ctype === 'texture'
-          ? new Texture2D(gl, input)
+          ? new Texture2DImage(gl, input)
+          : input.ctype === 'video'
+          ? new Texture2DVideo(gl, input)
           : input.ctype === 'cubemap'
           ? new TextureCube(gl, input)
           : null,
@@ -118,6 +119,8 @@ export const createDrawScene = (renderpass, forceLowEnd) => (gl) => {
         ]
 
         for (const input of inputs) {
+          input.texture.update()
+
           const i = input.channel
 
           const loaded = input.texture.loaded
@@ -130,10 +133,12 @@ export const createDrawScene = (renderpass, forceLowEnd) => (gl) => {
           gl.bindTexture(
             input.ctype === 'texture'
               ? gl.TEXTURE_2D
+              : input.ctype === 'video'
+              ? gl.TEXTURE_2D
               : input.ctype === 'cubemap'
               ? gl.TEXTURE_CUBE_MAP
               : null,
-            inputs[i].texture.id,
+            input.texture.id,
           )
           gl.uniform1i(shaderProgram.iChannel[i], i)
           gl.uniform1i(shaderProgram.iCh[i].sampler, i)

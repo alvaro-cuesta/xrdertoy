@@ -1,5 +1,10 @@
 export default class Texture2D {
-  constructor(gl, { src, sampler: { filter, wrap, vflip, srgb, internal } }) {
+  samplerType = 'sampler2D'
+  width = 0
+  height = 0
+  loaded = false
+
+  constructor(gl, { sampler: { filter, wrap, vflip, srgb, internal } }) {
     if (filter !== 'nearest' && filter !== 'linear' && filter !== 'mipmap') {
       throw new Error(`Unexpected filter "${filter}" for Texture2D`)
     }
@@ -22,24 +27,20 @@ export default class Texture2D {
 
     this.gl = gl
     this.id = gl.createTexture()
-    this.width = 0
-    this.height = 0
-    this.loaded = false
-    this.src = src
     this.magFilter =
-      this.filter === 'nearest'
+      filter === 'nearest'
         ? gl.NEAREST
-        : this.filter === 'linear'
+        : filter === 'linear'
         ? gl.LINEAR
-        : this.filter === 'mipmap'
+        : filter === 'mipmap'
         ? gl.LINEAR
         : null
     this.minFilter =
-      this.filter === 'nearest'
+      filter === 'nearest'
         ? gl.NEAREST
-        : this.filter === 'linear'
+        : filter === 'linear'
         ? gl.LINEAR
-        : this.filter === 'mipmap'
+        : filter === 'mipmap'
         ? gl.LINEAR_MIPMAP_LINEAR
         : null
     this.wrap =
@@ -65,26 +66,9 @@ export default class Texture2D {
       gl.UNSIGNED_BYTE,
       new Uint8Array([255, 0, 255, 255]),
     )
-
-    this.image = new Image()
-
-    this.image.onload = () => {
-      this.storeFromImage()
-
-      this.width = this.image.width
-      this.height = this.image.height
-      this.loaded = true
-    }
-
-    this.image.onerror = () => {
-      alert('Error loading input')
-    }
-
-    // image.src = toShaderToyURL(src)
-    this.image.src = src
   }
 
-  storeFromImage() {
+  initFrom(input) {
     const gl = this.gl
 
     gl.bindTexture(gl.TEXTURE_2D, this.id)
@@ -93,14 +77,7 @@ export default class Texture2D {
     gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false)
     gl.pixelStorei(gl.UNPACK_COLORSPACE_CONVERSION_WEBGL, gl.NONE)
 
-    gl.texImage2D(
-      gl.TEXTURE_2D,
-      0,
-      gl.RGBA8,
-      gl.RGBA,
-      gl.UNSIGNED_BYTE,
-      this.image,
-    )
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, gl.RGBA, gl.UNSIGNED_BYTE, input)
 
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, this.wrap)
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, this.wrap)
@@ -115,4 +92,18 @@ export default class Texture2D {
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false)
     gl.bindTexture(gl.TEXTURE_2D, null)
   }
+
+  updateFrom(input) {
+    const gl = this.gl
+
+    gl.bindTexture(gl.TEXTURE_2D, this.id)
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, this.vflip)
+
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, gl.RGBA, gl.UNSIGNED_BYTE, input)
+
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false)
+    gl.bindTexture(gl.TEXTURE_2D, null)
+  }
+
+  update() {}
 }

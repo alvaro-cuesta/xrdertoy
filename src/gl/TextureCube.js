@@ -19,6 +19,11 @@ const IMAGE_NUMBER_TO_ID = {
 }
 
 export default class TextureCube {
+  samplerType = 'samplerCube'
+  width = 0
+  height = 0
+  loaded = false
+
   constructor(gl, { src, sampler: { filter, wrap, vflip, srgb, internal } }) {
     if (filter !== 'nearest' && filter !== 'linear' && filter !== 'mipmap') {
       throw new Error(`Unexpected filter "${filter}" for TextureCube`)
@@ -42,9 +47,6 @@ export default class TextureCube {
 
     this.gl = gl
     this.id = gl.createTexture()
-    this.width = 0
-    this.height = 0
-    this.loaded = false
     this.magFilter =
       filter === 'nearest'
         ? gl.NEAREST
@@ -97,7 +99,7 @@ export default class TextureCube {
         this.images[IMAGE_NUMBER_TO_ID[selfI]] = image
 
         if (loaded === 6) {
-          this.storeFromImages()
+          this.initFromImages()
 
           const images = Object.values(this.images)
 
@@ -125,7 +127,7 @@ export default class TextureCube {
     }
   }
 
-  storeFromImages() {
+  initFromImages() {
     const gl = this.gl
 
     gl.bindTexture(gl.TEXTURE_CUBE_MAP, this.id)
@@ -199,4 +201,6 @@ export default class TextureCube {
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false)
     gl.bindTexture(gl.TEXTURE_CUBE_MAP, null)
   }
+
+  update() {}
 }

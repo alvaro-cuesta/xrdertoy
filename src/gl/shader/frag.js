@@ -23,19 +23,7 @@ uniform float iFrameRate;
 
 ${inputs
   .map((input) => {
-    const samplerType =
-      input?.type === 'cubemap'
-        ? `samplerCube`
-        : input?.type === 'volume'
-        ? `sampler3D`
-        : input?.type === 'texture'
-        ? `sampler2D`
-        : null
-
-    if (samplerType === null) {
-      throw new Error(`Unknown input type ${input?.type}`)
-    }
-
+    const samplerType = input?.texture?.samplerType
     const i = input?.channel
 
     return `uniform ${samplerType} iChannel${i};
