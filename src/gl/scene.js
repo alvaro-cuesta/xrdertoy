@@ -2,7 +2,7 @@ import { initShaderProgram } from './shader'
 import { initQuad } from './quad'
 import { mat4 } from 'gl-matrix'
 import { Mouse, Timing } from '../shadertoy/uniforms'
-import { create2DTextureFromInput } from './gl-util'
+import { create2DTextureFromInput, createCubeTextureFromInput } from './gl-util'
 
 const FPS_RATE = 500
 
@@ -12,7 +12,7 @@ export const createDrawScene = (renderpass, forceLowEnd) => (gl) => {
   }
 
   const inputs = renderpass[0].inputs.map((input, i) => {
-    if (input.ctype !== 'texture') {
+    if (input.ctype !== 'texture' && input.ctype !== 'cubemap') {
       throw new Error(`Unexpected ctype === ${input.ctype}`)
     }
 
@@ -30,8 +30,18 @@ export const createDrawScene = (renderpass, forceLowEnd) => (gl) => {
 
     return {
       ...input,
-      type: 'texture',
-      texture: create2DTextureFromInput(gl, input),
+      type:
+        input.ctype === 'texture'
+          ? 'texture'
+          : input.ctype === 'cubemap'
+          ? 'cubemap'
+          : null,
+      texture:
+        input.ctype === 'texture'
+          ? create2DTextureFromInput(gl, input)
+          : input.ctype === 'cubemap'
+          ? createCubeTextureFromInput(gl, input)
+          : null,
     }
   })
 
@@ -116,7 +126,14 @@ export const createDrawScene = (renderpass, forceLowEnd) => (gl) => {
           const channelTime = 0
 
           gl.activeTexture(gl[`TEXTURE${i}`])
-          gl.bindTexture(gl.TEXTURE_2D, inputs[i].texture.id)
+          gl.bindTexture(
+            input.ctype === 'texture'
+              ? gl.TEXTURE_2D
+              : input.ctype === 'cubemap'
+              ? gl.TEXTURE_CUBE_MAP
+              : null,
+            inputs[i].texture.id,
+          )
           gl.uniform1i(shaderProgram.iChannel[i], i)
           gl.uniform1i(shaderProgram.iCh[i].sampler, i)
           gl.uniform3f(shaderProgram.iCh[i].size, width, height, depth)
