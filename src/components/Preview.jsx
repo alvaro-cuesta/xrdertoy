@@ -51,16 +51,20 @@ const Preview = ({
         />
       </Link>
 
-      <div className={styles.action}>
-        {action === Preview.ACTIONS.PLAY ? (
-          <PlayIcon />
-        ) : action === Preview.ACTIONS.STOP ? (
-          <StopIcon />
-        ) : action === Preview.ACTIONS.SPIN ? (
-          <Spinner />
-        ) : action === Preview.ACTIONS.ERROR ? (
-          <ExclamationIcon />
-        ) : null}
+      <div className={styles.contentWrapper}>
+        <div className={styles.action}>
+          {action === Preview.ACTIONS.PLAY ? (
+            <PlayIcon />
+          ) : action === Preview.ACTIONS.STOP ? (
+            <StopIcon />
+          ) : action === Preview.ACTIONS.SPIN ? (
+            <Spinner />
+          ) : action === Preview.ACTIONS.ERROR ? (
+            <ExclamationIcon />
+          ) : null}
+        </div>
+
+        {message ? <div className={styles.message}>{message}</div> : null}
       </div>
 
       {views !== undefined || likes !== undefined ? (
@@ -76,10 +80,6 @@ const Preview = ({
             </div>
           ) : null}
         </div>
-      ) : null}
-
-      {message ? (
-        <div className={cx(styles.overlay, styles.message)}>{message}</div>
       ) : null}
 
       <div className={cx(styles.overlay, styles.spinner)}>
