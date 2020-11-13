@@ -13,13 +13,14 @@ import { getFlags } from '../shadertoy/flags'
 import ViewerButton from './ViewerButton'
 import useScrollToTopOnMount from '../hooks/useScrollToTopOnMount'
 import BBCode from './BBCode'
+import { getIsLowEnd } from '../shadertoy/misc'
 
 const Viewer = () => {
   useScrollToTopOnMount()
 
   const { id } = useParams()
   const { isLoading, isError, error, data, refetch } = useQueryShader(id)
-  const [forceLowEnd, setForceLowEnd] = useState(false)
+  const [forceLowEnd, setForceLowEnd] = useState(getIsLowEnd())
 
   const handleCheckForceLowEnd = useCallback((e) => {
     setForceLowEnd(!!e.target.checked)
@@ -91,20 +92,21 @@ const Viewer = () => {
 
         <ViewerButton id={id} shader={data?.Shader} forceLowEnd={forceLowEnd} />
 
-        <label>
+        <label title="Some shaders use this flag to enable lighter rendering.">
           <input
             type="checkbox"
             checked={forceLowEnd}
             onChange={handleCheckForceLowEnd}
+            disabled={getIsLowEnd()}
           />{' '}
-          Force performance mode
+          <span className={styles.hasTitle}>Performance flag</span>
         </label>
       </div>
 
       <div className={styles.info}>
         <ul>
           <li>
-            <span className={styles.dateTime} title={dateTimeText}>
+            <span className={styles.hasTitle} title={dateTimeText}>
               {dateText}
             </span>
           </li>
