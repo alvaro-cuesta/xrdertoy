@@ -268,8 +268,10 @@ const Browser = () => {
         ) : (
           <ul className={styles.resultList}>
             {data.Results.map((id) => (
-              <li key={id}>
-                <BrowserItem id={id} />
+              <li key={id} className={styles.item}>
+                <div className={styles.inside}>
+                  <BrowserItem id={id} />
+                </div>
               </li>
             ))}
           </ul>
