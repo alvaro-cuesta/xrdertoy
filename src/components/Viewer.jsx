@@ -14,6 +14,8 @@ import ViewerButton from './ViewerButton'
 import useScrollToTopOnMount from '../hooks/useScrollToTopOnMount'
 import BBCode from './BBCode'
 import { getIsLowEnd } from '../shadertoy/misc'
+import BigIcon from './BigIcon'
+import { ReactComponent as Spinner } from '../icons/spinner.svg'
 
 const Viewer = () => {
   useScrollToTopOnMount()
@@ -28,12 +30,15 @@ const Viewer = () => {
 
   if (isLoading) {
     return (
-      <div>
+      <>
         <Helmet>
           <title>{id} - XRderToy Viewer</title>
         </Helmet>
-        Loading shader {id}
-      </div>
+
+        <BigIcon Icon={Spinner} isSmall>
+          <h1>Loading shader {id}...</h1>
+        </BigIcon>
+      </>
     )
   }
 

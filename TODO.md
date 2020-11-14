@@ -7,11 +7,11 @@
 
 ## `Browser` features
 
-- Better "loading" state + keep current results if any
+- "fetching" state
 
 ## `Viewer` features
 
-- Better "loading" state
+- "fetching" state
 - Maybe allow editing code (for shaders with defines for e.g. quality)
 - Quality selector (intermediate render buffer?)
 

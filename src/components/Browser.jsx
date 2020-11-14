@@ -12,6 +12,8 @@ import BrowserItem from './BrowserItem'
 import styles from './Browser.module.scss'
 import { Helmet } from 'react-helmet-async'
 import useScrollToTopOnMount from '../hooks/useScrollToTopOnMount'
+import { ReactComponent as Spinner } from '../icons/spinner.svg'
+import BigIcon from './BigIcon'
 
 const TEXT_DEBOUNCE_MSECS = 350
 
@@ -261,7 +263,9 @@ const Browser = () => {
             Error loading shaders <button onClick={refetch}>Retry</button>
           </div>
         ) : isLoading ? (
-          'Loading shaders...'
+          <BigIcon Icon={Spinner} isSmall>
+            <h1>Loading shaders...</h1>
+          </BigIcon>
         ) : data.Shaders === 0 ? (
           'No shaders found matching that criteria'
         ) : (
