@@ -2,8 +2,6 @@
 
 ## General
 
-- What is `published` in `Shader.info`?
-- What is `hasliked` in `Shader.info`?
 - Footer
 - Remove ShaderToy media on `/public/media/` when (if) they enable CORS
 
@@ -38,6 +36,16 @@
   - On `Viewer` download error ("if this issue persists" link to download error
     template)
   - On internal error (link to generic error template)
+
+## ShaderToy compatibility
+
+- What is `Shader.info.published`?
+- What is `Shader.info.hasliked`?
+- Is `Shader.renderpass[i].sampler.internal` always `"byte"`?
+- Is `Shader.renderpass[i].sampler.srgb` always `"false"`?
+- Texture shaders seem to be hardcoded as `C4I8` on `effect.js`... except a few
+  weird constants like `"Xdf3zn"`. What are those?
+- There are some weird constants on `"bufferID_to_assetID"`. What are those?
 
 ## ShaderToy features
 
