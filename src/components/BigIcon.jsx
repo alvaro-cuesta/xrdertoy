@@ -10,7 +10,7 @@ const BigIcon = ({ Icon, children, isSmall }) => (
 )
 
 BigIcon.propTypes = {
-  Icon: PropTypes.element.isRequired,
+  Icon: PropTypes.elementType.isRequired,
   isSmall: PropTypes.bool,
 }
 
