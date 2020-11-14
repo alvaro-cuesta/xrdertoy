@@ -5,13 +5,8 @@
 - Footer
 - Remove ShaderToy media on `/public/media/` when (if) they enable CORS
 
-## `Browser` features
-
-- "fetching" state
-
 ## `Viewer` features
 
-- "fetching" state
 - Maybe allow editing code (for shaders with defines for e.g. quality)
 - Quality selector (intermediate render buffer?)
 

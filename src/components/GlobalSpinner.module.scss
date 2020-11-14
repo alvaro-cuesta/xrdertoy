@@ -1,0 +1,14 @@
+.GlobalSpinner {
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  width: 3em;
+  height: 3em;
+  padding: 0.5em;
+  fill: #222;
+  stroke: #222;
+  opacity: 0.8;
+  background-color: #fff;
+  border-radius: 5px;
+  pointer-events: none;
+}

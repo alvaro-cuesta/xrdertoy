@@ -16,12 +16,20 @@ import BBCode from './BBCode'
 import { getIsLowEnd } from '../shadertoy/misc'
 import BigIcon from './BigIcon'
 import { ReactComponent as Spinner } from '../icons/spinner.svg'
+import GlobalSpinner from './GlobalSpinner'
 
 const Viewer = () => {
   useScrollToTopOnMount()
 
   const { id } = useParams()
-  const { isLoading, isError, error, data, refetch } = useQueryShader(id)
+  const {
+    isLoading,
+    isFetching,
+    isError,
+    error,
+    data,
+    refetch,
+  } = useQueryShader(id)
   const [forceLowEnd, setForceLowEnd] = useState(getIsLowEnd())
 
   const handleCheckForceLowEnd = useCallback((e) => {
@@ -181,6 +189,8 @@ const Viewer = () => {
           <pre>{JSON.stringify(data, null, 4)}</pre>
         </details>
       </div>
+
+      {isFetching ? <GlobalSpinner /> : null}
     </div>
   )
 }

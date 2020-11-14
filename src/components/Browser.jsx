@@ -14,6 +14,7 @@ import { Helmet } from 'react-helmet-async'
 import useScrollToTopOnMount from '../hooks/useScrollToTopOnMount'
 import { ReactComponent as Spinner } from '../icons/spinner.svg'
 import BigIcon from './BigIcon'
+import GlobalSpinner from './GlobalSpinner'
 
 const TEXT_DEBOUNCE_MSECS = 350
 
@@ -47,6 +48,7 @@ const Browser = () => {
   // List fetching
   const {
     isLoading,
+    isFetching,
     isError,
     isSuccess,
     resolvedData: data,
@@ -280,6 +282,8 @@ const Browser = () => {
           </ul>
         )}
       </div>
+
+      {isFetching ? <GlobalSpinner /> : null}
     </div>
   )
 }
