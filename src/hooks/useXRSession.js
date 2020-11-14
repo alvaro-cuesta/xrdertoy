@@ -56,6 +56,7 @@ export const useXRSession = (createDrawScene) => {
 
       const xrRefSpace = await xrSession.current.requestReferenceSpace('local')
 
+      setIsStarting(false)
       setIsRunning(true)
 
       const drawXR = (time, frame) => {
