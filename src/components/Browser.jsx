@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import cx from 'classnames'
 import {
   useQueryParam,
@@ -13,11 +13,14 @@ import styles from './Browser.module.scss'
 import { Helmet } from 'react-helmet-async'
 import useScrollToTopOnMount from '../hooks/useScrollToTopOnMount'
 
+const TEXT_DEBOUNCE_MSECS = 350
+
 const Browser = () => {
   useScrollToTopOnMount()
 
   // Query params
   const [text, setText] = useQueryParam('text', withDefault(StringParam, ''))
+  const [debouncedText, setDebouncedText] = useState(text)
   const [page, setPage] = useQueryParam('page', withDefault(NumberParam, 1))
   const [sort, setSort] = useQueryParam(
     'sort',
@@ -49,7 +52,7 @@ const Browser = () => {
     refetch,
   } = useQueryShaderList(
     Browser.RESULTS_PER_PAGE,
-    text,
+    debouncedText,
     page,
     sort,
     hasGPUSound,
@@ -61,14 +64,28 @@ const Browser = () => {
   )
 
   // Text
+  const textTimeoutRef = useRef(null)
+
   const handleTextChange = useCallback(
     (e) => {
-      setText(e.target.value.length > 0 ? e.target.value : undefined)
+      const value = e.target.value.length > 0 ? e.target.value : undefined
+
+      setText(value)
+
+      if (textTimeoutRef.current) {
+        clearTimeout(textTimeoutRef.current)
+        textTimeoutRef.current = null
+      }
+
+      textTimeoutRef.current = setTimeout(() => {
+        setDebouncedText(value)
+      }, TEXT_DEBOUNCE_MSECS)
     },
     [setText],
   )
   const handleTextDelete = useCallback(() => {
     setText(undefined)
+    setDebouncedText(undefined)
   }, [setText])
 
   // Filters

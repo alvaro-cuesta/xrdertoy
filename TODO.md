@@ -10,7 +10,6 @@
 ## `Browser` features
 
 - Better "loading" state + keep current results if any
-- Debounce text search
 
 ## `Viewer` features
 
