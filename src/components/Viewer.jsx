@@ -190,7 +190,7 @@ const Viewer = () => {
         </details>
       </div>
 
-      {isFetching ? <GlobalSpinner /> : null}
+      <GlobalSpinner isHidden={!isFetching || isLoading} />
     </div>
   )
 }
