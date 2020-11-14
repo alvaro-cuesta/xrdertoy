@@ -1,4 +1,4 @@
-const { useQuery } = require('react-query')
+const { usePaginatedQuery } = require('react-query')
 const { APP_KEY } = require('../config')
 
 export const useQueryShaderList = (
@@ -13,7 +13,7 @@ export const useQueryShaderList = (
   hasSoundCloud,
   hasKeyboard,
 ) =>
-  useQuery(
+  usePaginatedQuery(
     [
       'shader-list',
       text,
