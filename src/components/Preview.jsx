@@ -37,7 +37,10 @@ const Preview = ({
     <div
       className={cx(
         styles.Preview,
-        { [styles.isLoading]: isLoading },
+        {
+          [styles.isLoading]: isLoading,
+          [styles.isError]: action === Preview.ACTIONS.ERROR,
+        },
         className,
       )}
     >
