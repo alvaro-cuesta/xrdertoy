@@ -13,6 +13,7 @@ import styles from './Browser.module.scss'
 import { Helmet } from 'react-helmet-async'
 import useScrollToTopOnMount from '../hooks/useScrollToTopOnMount'
 import { ReactComponent as Spinner } from '../icons/spinner.svg'
+import { ReactComponent as EmptyIcon } from '../icons/empty.svg'
 import { ReactComponent as ExclamationIcon } from '../icons/exclamation.svg'
 import BigIcon from './BigIcon'
 import GlobalSpinner from './GlobalSpinner'
@@ -271,7 +272,9 @@ const Browser = () => {
             <h1>Loading shaders...</h1>
           </BigIcon>
         ) : data.Shaders === 0 ? (
-          'No shaders found matching that criteria'
+          <BigIcon Icon={EmptyIcon} isSmall>
+            <h1>No shaders found matching that criteria</h1>
+          </BigIcon>
         ) : (
           <ul className={styles.resultList}>
             {data.Results.map((id) => (
