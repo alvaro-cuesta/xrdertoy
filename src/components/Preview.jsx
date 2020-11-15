@@ -100,8 +100,7 @@ Preview.ACTIONS = {
 }
 
 Preview.propTypes = {
-  name: PropTypes.string,
-  username: PropTypes.string,
+  message: PropTypes.element,
   views: PropTypes.number,
   likes: PropTypes.number,
   isLoading: PropTypes.bool,
