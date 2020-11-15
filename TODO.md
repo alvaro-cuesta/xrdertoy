@@ -13,7 +13,6 @@
 ## Error handling
 
 - Error/warn if `Shader.ver` is not `0.1` on `Viewer`
-- Pretty 404 page
 - Pretty `Browser` download error
 - `BrowserItem` download error + pretty
 - `BrowserItem` image error + pretty
