@@ -13,11 +13,9 @@
 ## Error handling
 
 - Error/warn if `Shader.ver` is not `0.1` on `Viewer`
-- Pretty `Browser` download error
 - `BrowserItem` download error + pretty
 - `BrowserItem` image error + pretty
 - Allow retyring `BrowserItem`
-- Pretty `Viewer` download error
 - `Viewer` image error + pretty
 - `Viewer` XR/GL error + pretty
 - Error boundary for nice internal errors + pretty

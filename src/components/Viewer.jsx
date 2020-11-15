@@ -16,6 +16,7 @@ import BBCode from './BBCode'
 import { getIsLowEnd } from '../shadertoy/misc'
 import BigIcon from './BigIcon'
 import { ReactComponent as Spinner } from '../icons/spinner.svg'
+import { ReactComponent as ExclamationIcon } from '../icons/exclamation.svg'
 import GlobalSpinner from './GlobalSpinner'
 
 const Viewer = () => {
@@ -51,14 +52,17 @@ const Viewer = () => {
   }
 
   if (isError || data.Error) {
+    const errorMessage = error?.message || data?.Error
+
     return (
-      <div>
+      <BigIcon Icon={ExclamationIcon} isSmall>
         <Helmet>
           <title>{id} - XRderToy Viewer</title>
         </Helmet>
-        Error loading shader {id}: {error?.message || data?.Error}{' '}
+        <h1>Error loading shader {id}</h1>
+        {errorMessage ? <p>{errorMessage}</p> : null}
         <button onClick={refetch}>Retry</button>
-      </div>
+      </BigIcon>
     )
   }
 

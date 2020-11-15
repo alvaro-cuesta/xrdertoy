@@ -13,6 +13,7 @@ import styles from './Browser.module.scss'
 import { Helmet } from 'react-helmet-async'
 import useScrollToTopOnMount from '../hooks/useScrollToTopOnMount'
 import { ReactComponent as Spinner } from '../icons/spinner.svg'
+import { ReactComponent as ExclamationIcon } from '../icons/exclamation.svg'
 import BigIcon from './BigIcon'
 import GlobalSpinner from './GlobalSpinner'
 
@@ -261,9 +262,10 @@ const Browser = () => {
       </div>
       <div className={styles.listWrapper}>
         {isError ? (
-          <div>
-            Error loading shaders <button onClick={refetch}>Retry</button>
-          </div>
+          <BigIcon Icon={ExclamationIcon} isSmall>
+            <h1>Error loading shaders list</h1>
+            <button onClick={refetch}>Retry</button>
+          </BigIcon>
         ) : isLoading ? (
           <BigIcon Icon={Spinner} isSmall>
             <h1>Loading shaders...</h1>
