@@ -2,8 +2,11 @@
 
 ## General
 
+- Favicons
+- Logo (og:image, meta default)
 - Footer
 - Remove ShaderToy media on `/public/media/` when (if) they enable CORS
+- Mouse signs
 
 ## `Viewer` features
 
