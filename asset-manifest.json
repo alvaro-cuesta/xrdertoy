@@ -1,29 +1,29 @@
 {
   "files": {
-    "main.css": "/static/css/main.7747842e.chunk.css",
-    "main.js": "/static/js/main.2fe355ca.chunk.js",
-    "main.js.map": "/static/js/main.2fe355ca.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.1c6a8ee4.js",
-    "runtime-main.js.map": "/static/js/runtime-main.1c6a8ee4.js.map",
-    "static/js/2.7e00eff1.chunk.js": "/static/js/2.7e00eff1.chunk.js",
-    "static/js/2.7e00eff1.chunk.js.map": "/static/js/2.7e00eff1.chunk.js.map",
-    "static/js/3.f9311ca9.chunk.js": "/static/js/3.f9311ca9.chunk.js",
-    "static/js/3.f9311ca9.chunk.js.map": "/static/js/3.f9311ca9.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/main.7747842e.chunk.css.map": "/static/css/main.7747842e.chunk.css.map",
-    "static/js/2.7e00eff1.chunk.js.LICENSE.txt": "/static/js/2.7e00eff1.chunk.js.LICENSE.txt",
-    "static/media/empty.b8bde181.svg": "/static/media/empty.b8bde181.svg",
-    "static/media/exclamation.9bccad91.svg": "/static/media/exclamation.9bccad91.svg",
-    "static/media/eye.c6f3b1f8.svg": "/static/media/eye.c6f3b1f8.svg",
-    "static/media/heart.1859af6a.svg": "/static/media/heart.1859af6a.svg",
-    "static/media/play.3c987888.svg": "/static/media/play.3c987888.svg",
-    "static/media/spinner.134caff8.svg": "/static/media/spinner.134caff8.svg",
-    "static/media/stop.ad456e55.svg": "/static/media/stop.ad456e55.svg"
+    "main.css": "https://alvaro-cuesta.github.io/xrdertoy/static/css/main.7747842e.chunk.css",
+    "main.js": "https://alvaro-cuesta.github.io/xrdertoy/static/js/main.c693faf5.chunk.js",
+    "main.js.map": "https://alvaro-cuesta.github.io/xrdertoy/static/js/main.c693faf5.chunk.js.map",
+    "runtime-main.js": "https://alvaro-cuesta.github.io/xrdertoy/static/js/runtime-main.d22cadd6.js",
+    "runtime-main.js.map": "https://alvaro-cuesta.github.io/xrdertoy/static/js/runtime-main.d22cadd6.js.map",
+    "static/js/2.7e00eff1.chunk.js": "https://alvaro-cuesta.github.io/xrdertoy/static/js/2.7e00eff1.chunk.js",
+    "static/js/2.7e00eff1.chunk.js.map": "https://alvaro-cuesta.github.io/xrdertoy/static/js/2.7e00eff1.chunk.js.map",
+    "static/js/3.f9311ca9.chunk.js": "https://alvaro-cuesta.github.io/xrdertoy/static/js/3.f9311ca9.chunk.js",
+    "static/js/3.f9311ca9.chunk.js.map": "https://alvaro-cuesta.github.io/xrdertoy/static/js/3.f9311ca9.chunk.js.map",
+    "index.html": "https://alvaro-cuesta.github.io/xrdertoy/index.html",
+    "static/css/main.7747842e.chunk.css.map": "https://alvaro-cuesta.github.io/xrdertoy/static/css/main.7747842e.chunk.css.map",
+    "static/js/2.7e00eff1.chunk.js.LICENSE.txt": "https://alvaro-cuesta.github.io/xrdertoy/static/js/2.7e00eff1.chunk.js.LICENSE.txt",
+    "static/media/empty.b8bde181.svg": "https://alvaro-cuesta.github.io/xrdertoy/static/media/empty.b8bde181.svg",
+    "static/media/exclamation.9bccad91.svg": "https://alvaro-cuesta.github.io/xrdertoy/static/media/exclamation.9bccad91.svg",
+    "static/media/eye.c6f3b1f8.svg": "https://alvaro-cuesta.github.io/xrdertoy/static/media/eye.c6f3b1f8.svg",
+    "static/media/heart.1859af6a.svg": "https://alvaro-cuesta.github.io/xrdertoy/static/media/heart.1859af6a.svg",
+    "static/media/play.3c987888.svg": "https://alvaro-cuesta.github.io/xrdertoy/static/media/play.3c987888.svg",
+    "static/media/spinner.134caff8.svg": "https://alvaro-cuesta.github.io/xrdertoy/static/media/spinner.134caff8.svg",
+    "static/media/stop.ad456e55.svg": "https://alvaro-cuesta.github.io/xrdertoy/static/media/stop.ad456e55.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.1c6a8ee4.js",
+    "static/js/runtime-main.d22cadd6.js",
     "static/js/2.7e00eff1.chunk.js",
     "static/css/main.7747842e.chunk.css",
-    "static/js/main.2fe355ca.chunk.js"
+    "static/js/main.c693faf5.chunk.js"
   ]
 }
