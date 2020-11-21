@@ -15,6 +15,11 @@ const App = () => (
   <>
     <Helmet>
       <title>XRderToy Viewer</title>
+      <meta property="og:title" content="XRderToy Viewer" />
+      <meta
+        property="og:image"
+        content="https://www.shadertoy.com/img/logo.png"
+      />
     </Helmet>
 
     <div className={styles.App}>

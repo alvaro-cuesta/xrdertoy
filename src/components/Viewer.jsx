@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async'
 import { useQueryShader } from '../hooks/useQueryShader'
 import {
   BROWSER_PATH,
+  SHADERTOY_PREVIEW_PATH,
   SHADERTOY_USER_PATH,
   SHADERTOY_VIEW_PATH,
   VIEW_PATH,
@@ -37,11 +38,15 @@ const Viewer = () => {
     setForceLowEnd(!!e.target.checked)
   }, [])
 
+  const shaderToyPreviewPath = generatePath(SHADERTOY_PREVIEW_PATH, { id })
+
   if (isLoading) {
     return (
       <>
         <Helmet>
           <title>{id} - XRderToy Viewer</title>
+          <meta property="og:title" content={`${id} - XRderToy Viewer`} />
+          <meta property="og:image" content={shaderToyPreviewPath} />
         </Helmet>
 
         <BigIcon Icon={Spinner} isSmall>
@@ -58,6 +63,8 @@ const Viewer = () => {
       <BigIcon Icon={ExclamationIcon} isSmall>
         <Helmet>
           <title>{id} - XRderToy Viewer</title>
+          <meta property="og:title" content={`${id} - XRderToy Viewer`} />
+          <meta property="og:image" content={shaderToyPreviewPath} />
         </Helmet>
         <h1>Error loading shader {id}</h1>
         {errorMessage ? <p>{errorMessage}</p> : null}
@@ -92,6 +99,11 @@ const Viewer = () => {
         <title>
           {info.name} by {info.username} - XRderToy Viewer
         </title>
+        <meta
+          property="og:title"
+          content={`${info.name} by ${info.username} - XRderToy Viewer`}
+        />
+        <meta property="og:image" content={shaderToyPreviewPath} />
       </Helmet>
 
       <div className={styles.main}>
